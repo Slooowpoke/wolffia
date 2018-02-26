@@ -1,5 +1,6 @@
 import Connection from './Connection'
 import Page from '../models/Page'
+import Block from '../models/Block'
 
 export default class Retrieve {
 
