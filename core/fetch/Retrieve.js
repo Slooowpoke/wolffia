@@ -21,6 +21,12 @@ export default class Retrieve {
         return response
     }
 
+
+    async getBlockStructure(id){
+        let response = await this.connection.getBlockStructure(id)
+        return response
+    }
+
     async updatePageData(blocks, pageID){
         let response = await this.connection.updatePageData(blocks, pageID)
         return response

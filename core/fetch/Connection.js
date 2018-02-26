@@ -47,6 +47,17 @@ export default class Connection {
             ctx.throw(400, 'INVALID_DATA')
         }
     }
+
+    async getBlockStructure(id){
+        try {
+            const [response] = await this.db.execute('SELECT * FROM `blocks` WHERE id = ? LIMIT 1', [id])
+            response[0].structure = JSON.parse(response[0].structure)
+            return response[0]
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
     async createPage(title, name, template){
         try {
             const [response] = await this.db.execute('INSERT INTO `pages` (`name`, `title`, `template`) VALUES ( ?, ?, ?)', [name, title, template])
