@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import * as Actions from '../../actions/pages'
 
 import {Link, Route} from 'react-router-dom'
+import VisibleBlocks from '../blocks/VisibleBlocks'
 
 class PageEditor extends Component {
 	constructor(props) {
@@ -44,6 +45,8 @@ class PageEditor extends Component {
 
 
                 <button onClick={this.save}>Save page meta</button>
+
+                <VisibleBlocks pageID= {this.state.id}/>
 			</div>
 		)
 	}
