@@ -68,6 +68,16 @@ export default class Connection {
             ctx.throw(400, 'INVALID_DATA')
         }
     }
+
+    async savePageMeta(title, name, template, pageID){
+        try {
+            const [response] = await this.db.execute('UPDATE `pages` SET `title` = ?,`name` = ?, `template` = ? WHERE `pages`.`id` = ?', [title, name,template, pageID])
+            return response
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
     async queryAllPageMetas(){
         try {
             const [meta] = await this.db.execute('SELECT * FROM `pages`')
