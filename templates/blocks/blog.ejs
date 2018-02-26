@@ -1,22 +1,22 @@
 <p>BLOG</p>
 
 <ul>
-<% for(let post of posts.value){ %>
-    <li>
-    <%- post.title.value %>
-    <%- post.content.value %>
-    <br>
-    <% if(post.posts != undefined){ %>
-        <ul>
-        <% for(let anotherpost of post.posts.value){ %>
-            <li>
-            <%- anotherpost.title.value %>
-            <%- anotherpost.content.value %>
-            </li>
-        <% } %>
-        </ul>
+	<% for(let post of posts.value){ %>
+		<li>
+			<%- post.title.value %>
+				<%- post.content.value %>
+					<br>
+					<% if(post.posts != undefined){ %>
+						<ul>
+							<% for(let anotherpost of post.posts.value){ %>
+								<li>
+									<%- anotherpost.title.value %>
+										<%- anotherpost.content.value %>
+								</li>
+								<% } %>
+						</ul>
 
-    <% } %>
-    </li>
-<% } %>
-</u>
+						<% } %>
+		</li>
+		<% } %>
+			</u>
