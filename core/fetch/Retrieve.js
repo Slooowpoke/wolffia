@@ -14,6 +14,12 @@ export default class Retrieve {
         let pageMetas = await this.connection.queryAllPageMetas()
         return pageMetas
     }
+
+    async updatePageData(blocks, pageID){
+        let response = await this.connection.updatePageData(blocks, pageID)
+        return response
+    }
+
     async dropPageData(block){
         let response = await this.connection.dropPageData(block)
         return response

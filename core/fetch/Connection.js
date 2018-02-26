@@ -17,6 +17,36 @@ export default class Connection {
             ctx.throw(400, 'INVALID_DATA')
         }
     }
+
+    async updatePageData(blocks, pageID){
+        let currentBlocks = await this.queryForBlocks(pageID)
+        let blocksExist = [], blocksToBeCreated = []
+        for(let updateBlock of blocks){
+            if(updateBlock.id != undefined){
+                blocksExist.push(updateBlock)
+            }else{
+                blocksToBeCreated.push(updateBlock)
+            }
+        }
+
+        try {
+            let allResponses = []
+            for(let block of blocksExist){
+                const [updateResponse] = await this.db.execute('UPDATE `page_data` SET `name` = ?, `block` = ?, `data` = ? WHERE `page_data`.`id` = ?', [block.name, block.block,JSON.stringify(block.data), block.id])
+                allResponses.push(updateResponse)
+            }
+            for(let block of blocksToBeCreated){
+                console.log(block)
+                const [insertResponse] = await this.db.execute('INSERT INTO `page_data` (`page`, `name`, `block`, `data`) VALUES ( ?, ?, ?, ?)', [pageID, block.name, block.block, JSON.stringify(block.data)])
+                allResponses.push(insertResponse)
+            }
+
+            return allResponses
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
     async queryAllPageMetas(){
         try {
             const [meta] = await this.db.execute('SELECT * FROM `pages`')
