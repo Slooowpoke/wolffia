@@ -10,6 +10,10 @@ export default class Retrieve {
         let {blocks, meta} = await this.connection.queryForPage(pagename)
         return new Page(meta, blocks)
     }
+    async getAllPageMetas(){
+        let pageMetas = await this.connection.queryAllPageMetas()
+        return pageMetas
+    }
     async dropPageData(block){
         let response = await this.connection.dropPageData(block)
         return response

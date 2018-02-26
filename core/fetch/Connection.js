@@ -17,6 +17,16 @@ export default class Connection {
             ctx.throw(400, 'INVALID_DATA')
         }
     }
+    async queryAllPageMetas(){
+        try {
+            const [meta] = await this.db.execute('SELECT * FROM `pages`')
+            return meta
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
+
     async queryForPage(pagename){
         try {
             const meta = await this.queryForPageMeta(pagename)
