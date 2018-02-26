@@ -54,12 +54,47 @@ export function savePageMetaFailure(error){
 
 
 let totalPages = 0
-export function createPage(meta) {
-   return {
+export function createPage(title, name, template) {
+    const request = axios.post('http://localhost:3001/api/pages/create', {title, name, template})
+
+    return (dispatch) => {
+        dispatch(createPageRequest())
+
+        request.then(({data}) => {
+            console.log(data)
+            if(data != undefined){
+                dispatch(createPageSuccess(data))
+            }else{
+                throw('No pages available')
+            }
+
+        }).catch(({error}) => {
+            dispatch(createPageFailure(error))
+        })
+    }
+}
+
+export function createPageRequest(){
+    return {
+        type: CREATE_PAGE_REQUEST
+    }
+}
+
+export function createPageFailure(error){
+    return {
+        type: CREATE_PAGE_FAILURE,
+        error
+    }
+}
+
+export function createPageSuccess(page){
+    return {
        type: CREATE_PAGE,
-       meta,
-       index: totalPages++
-   }
+       title: page.title,
+       name: page.name,
+       template: page.template,
+       id:page.id
+    }
 }
 
 export function updatePage(meta) {
