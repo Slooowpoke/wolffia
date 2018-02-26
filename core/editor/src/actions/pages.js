@@ -98,15 +98,50 @@ export function createPageSuccess(page){
 }
 
 export function updatePage(meta) {
-   return {
-       type: UPDATE_PAGE,
-       meta,
-       index: meta.index
-   }
+    console.log(meta)
+    return (dispatch) => {
+        dispatch(savePageMeta(meta))
+    }
 }
 
-export function deletePage(index) {
-   return {type: DELETE_PAGE, index}
+export function deletePage(id) {
+    const request = axios.get('http://localhost:3001/api/pages/' + id + '/delete')
+
+    return (dispatch) => {
+        dispatch(deletePageRequest())
+
+        request.then(({data}) => {
+            console.log(data)
+            if(data != undefined){
+                dispatch(deletePageSuccess(data))
+            }else{
+                throw('No pages available')
+            }
+
+        }).catch(({error}) => {
+            dispatch(deletePageFailure(error))
+        })
+    }
+}
+
+export function deletePageRequest(){
+    return {
+        type: DELETE_PAGE_REQUEST
+    }
+}
+
+export function deletePageFailure(error){
+    return {
+        type: DELETE_PAGE_FAILURE,
+        error
+    }
+}
+
+export function deletePageSuccess(id){
+    return {
+       type: DELETE_PAGE,
+       id
+    }
 }
 
 
