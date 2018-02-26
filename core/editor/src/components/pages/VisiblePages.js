@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import * as Actions from '../../actions/pages'
+import NewPage from './NewPage'
 
 class VisiblePages extends Component {
 
@@ -11,6 +12,10 @@ class VisiblePages extends Component {
 		this.boundActionCreators = bindActionCreators(Actions, dispatch)
 
         dispatch(Actions.loadPages())
+        this.state = {
+            newPageTitle: '',
+            newPageName:''
+        }
 	}
 
 	render() {
@@ -18,22 +23,29 @@ class VisiblePages extends Component {
             return (
                 <div>
                     <p>No pages created yet.</p>
+                    <NewPage createPage={this.createPage}/>
                 </div>
             )
         }
 		return (
 			<div>
+                <NewPage createPage={this.createPage}/>
                 {this.props.list.map((page,index) => {
         			return (
                         <div key={index}>
                             <p>{page.name} - {page.title}</p>
-                            <button onClick={(e) => this.editPage(page.index, e)}>Edit page</button>
+                            <button onClick={(e) => this.editPage(page.id, e)}>Edit page</button>
                         </div>
         			)
         		})}
 			</div>
 		)
 	}
+
+    createPage = (title, name, template) => {
+        const { dispatch } = this.props
+        dispatch(Actions.createPage(title, name, template))
+    }
 
     editPage = (id, e) => {
     	const {dispatch} = this.props
