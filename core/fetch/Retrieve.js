@@ -15,6 +15,12 @@ export default class Retrieve {
         return pageMetas
     }
 
+
+    async createPage(title, name, template){
+        let response = await this.connection.createPage(title, name, template)
+        return response
+    }
+
     async updatePageData(blocks, pageID){
         let response = await this.connection.updatePageData(blocks, pageID)
         return response

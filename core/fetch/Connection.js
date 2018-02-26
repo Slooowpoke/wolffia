@@ -47,6 +47,16 @@ export default class Connection {
             ctx.throw(400, 'INVALID_DATA')
         }
     }
+    async createPage(title, name, template){
+        try {
+            const [response] = await this.db.execute('INSERT INTO `pages` (`name`, `title`, `template`) VALUES ( ?, ?, ?)', [name, title, template])
+            console.log({title, name, template, id: response.insertId})
+            return {title, name, template, id: response.insertId}
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
     async queryAllPageMetas(){
         try {
             const [meta] = await this.db.execute('SELECT * FROM `pages`')
