@@ -9,9 +9,10 @@ const cors = require('@koa/cors')
 const app = new Koa()
 const retriever = new Retrieve()
 
-app.use(views('./templates', {
-	extension: 'ejs'
-}))
+app.use(views('./templates', {extension: 'ejs'}))
+app.use(bodyParser())
+app.use(cors())
+
 const pages = {
 	home: async(ctx) => {
         ctx.state.page = await retriever.getPage('home')
@@ -34,10 +35,6 @@ app.use(router.get('/wf-editor', pages.editor))
 app.use(router.get('/', pages.home))
 app.use(router.get('/about', pages.about))
 
-app.use(async(ctx, next) => {
-	ctx.state.page = await retriever.getPage('home')
-	await next()
-})
 // TODO Authentication on API Routes
 const api = {
 	pages: async(ctx) => {
