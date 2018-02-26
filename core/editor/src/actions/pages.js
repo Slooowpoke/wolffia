@@ -11,6 +11,48 @@ export const LOAD_SINGLE_PAGE_SUCCESS = 'LOAD_SINGLE_PAGE_SUCCESS'
 export const SAVE_META = 'SAVE_PAGE_META',SAVE_META_REQUEST = 'SAVE_META_REQUEST', SAVE_META_FAILURE = 'SAVE_META_FAILURE'
 export const CREATE_PAGE_REQUEST = 'CREATE_PAGE_REQUEST', CREATE_PAGE_SUCCESS = 'CREATE_PAGE_SUCCESS', CREATE_PAGE_FAILURE = 'CREATE_PAGE_FAILURE'
 export const DELETE_PAGE_REQUEST = 'DELETE_PAGE_REQUEST', DELETE_PAGE_SUCCESS ='DELETE_PAGE_SUCCESS', DELETE_PAGE_FAILURE = 'DELETE_PAGE_FAILURE'
+
+export function savePageMeta(meta){
+    const request = axios.post('http://localhost:3001/api/pages/' + meta.id + '/meta/save', meta)
+
+    return (dispatch) => {
+        dispatch(savePageMetaRequest())
+
+        request.then(({data}) => {
+            if(data.length > 0){
+                dispatch(savePageMetaSuccess(data))
+            }else{
+                throw('No pages available')
+            }
+
+        }).catch(({error}) => {
+            dispatch(savePageMetaFailure(error))
+        })
+    }
+}
+
+export function savePageMetaRequest(){
+    return {
+        type: SAVE_META_REQUEST,
+    }
+}
+
+export function savePageMetaSuccess(meta){
+    return {
+        type: UPDATE_PAGE,
+        meta,
+        id: meta.id
+    }
+}
+
+export function savePageMetaFailure(error){
+    return {
+        type: SAVE_META_FAILURE,
+        error,
+    }
+}
+
+
 let totalPages = 0
 export function createPage(meta) {
    return {
