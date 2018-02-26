@@ -26,6 +26,10 @@ export default class Retrieve {
         return response
     }
 
+    async getBlocksList(){
+        let response = await this.connection.blocksList()
+        return response
+    }
 
     async getBlockStructure(id){
         let response = await this.connection.getBlockStructure(id)

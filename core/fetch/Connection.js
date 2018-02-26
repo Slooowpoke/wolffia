@@ -58,6 +58,16 @@ export default class Connection {
             ctx.throw(400, 'INVALID_DATA')
         }
     }
+
+    async blocksList(title, name, template){
+        try {
+            const [response] = await this.db.execute('SELECT name, id FROM `blocks`')
+            return response
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
     async createPage(title, name, template){
         try {
             const [response] = await this.db.execute('INSERT INTO `pages` (`name`, `title`, `template`) VALUES ( ?, ?, ?)', [name, title, template])
