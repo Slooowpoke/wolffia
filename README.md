@@ -3,7 +3,7 @@
 		"value": [{
 			"title": {
 				"type": "text",
-				"value": "SO MUICH FRUCKING FUSTER"
+				"value": "SO MUICH dooting faster"
 			},
 			"content": {
 				"type": "html",
@@ -13,7 +13,7 @@
 				"value": [{
 					"title": {
 						"type": "text",
-						"value": "SO MUICH FRUCKING FUSTER"
+						"value": "SO MUICH dooting faster"
 					},
 					"content": {
 						"type": "html",
