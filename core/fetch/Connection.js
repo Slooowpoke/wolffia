@@ -8,6 +8,15 @@ export default class Connection {
                     .catch(e => console.error(e))
 	}
 
+    async dropPageData(block){
+        try {
+            const [response] = await this.db.execute('DELETE FROM `page_data` WHERE `page_data`.`id` = ?', [block])
+            return block
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
     async queryForPage(pagename){
         try {
             const meta = await this.queryForPageMeta(pagename)
