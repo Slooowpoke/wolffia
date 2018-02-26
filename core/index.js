@@ -1,8 +1,6 @@
 import Connection from './fetch/Connection'
 import Retrieve from './fetch/Retrieve'
 import Koa from 'koa'
-import PageBuilder from './PageBuilder'
-
 const router = require('koa-route')
 const views = require('koa-views')
 const bodyParser = require('koa-bodyparser')
