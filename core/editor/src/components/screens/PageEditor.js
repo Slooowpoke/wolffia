@@ -13,15 +13,27 @@ class PageEditor extends Component {
 		this.boundActionCreators = bindActionCreators(Actions, dispatch)
         console.log(props)
 
-        let page = props.list[props.currentPage]
+        let page = props.list[this.getPageByID(props.list, props.match.params.id)]
 
         console.log(props.list)
 
         this.state = {
+            id: page.id,
             title: page.title,
-            name: page.name
+            name: page.name,
+            template: page.template
         }
 	}
+
+    getPageByID = (array, id) =>{
+        for(let i = 0; i < array.length; i++){
+            let page = array[i]
+            if(page.id == id){
+                return i
+            }
+        }
+        return -1
+    }
 
 	render() {
 		return (
