@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
-import './css/App.css';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import registerServiceWorker from './registerServiceWorker'
+import './css/App.css'
 
 // Redux based imports
-import thunk from 'redux-thunk';
+import thunk from 'redux-thunk'
 import {Provider} from 'react-redux'
 import {createStore, applyMiddleware} from 'redux'
 import {app} from './components/reducers'
@@ -28,6 +28,6 @@ const unsubscribe = store.subscribe(() => console.log(store.getState()))
 
 
 ReactDOM.render(
-	<Root store={store} history={history}/>, document.getElementById('root'));
+	<Root store={store} history={history}/>, document.getElementById('root'))
 
-registerServiceWorker();
+registerServiceWorker()
