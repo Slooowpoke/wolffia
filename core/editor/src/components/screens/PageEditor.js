@@ -40,10 +40,9 @@ class PageEditor extends Component {
 		return (
 			<div>
 				<p>Viewing page: {this.props.match.params.id}</p>
-                <input type="text" name="title" value={this.state.title}/>
-                <input type="text" name="title" value={this.state.name}/>
-
-
+                <input type="text" name="title" value={this.state.title} onChange={this.onChangeTitle}/>
+                <input type="text" name="name" value={this.state.name} onChange={this.onChangeName}/>
+                <input type="text" name="name" value={this.state.template} onChange={this.onChangeTemplate}/>
                 <button onClick={this.save}>Save page meta</button>
 
                 <VisibleBlocks pageID= {this.state.id}/>
@@ -51,9 +50,21 @@ class PageEditor extends Component {
 		)
 	}
 
+    onChangeTemplate = (e) =>{
+        this.setState({template: e.target.value})
+    }
+
+    onChangeTitle = (e) =>{
+        this.setState({title: e.target.value})
+    }
+
+    onChangeName = (e) =>{
+        this.setState({name: e.target.value})
+    }
+
     save = () => {
         const { dispatch } = this.props
-        let meta = {title: this.state.title, name: this.state.name}
+        let meta = {title: this.state.title, name: this.state.name,template: this.state.template, id: this.state.id}
         dispatch(Actions.updatePage(meta))
     }
 
