@@ -22,8 +22,10 @@ export function pages(state = initialState, action) {
 			return Object.assign({}, state, {
 				list: [
 					...state.list, {
-						index: action.index,
-						meta: action.meta
+						id: action.id,
+                        title: action.title,
+                        name: action.name,
+                        template: action.template
 					}
 				]
 			})
@@ -35,7 +37,7 @@ export function pages(state = initialState, action) {
             })
 		case DELETE_PAGE:
 			return Object.assign({}, state, {
-				list: state.list.filter(page => page.index != action.index)
+				list: state.list.filter(page => page.id != action.id)
 			})
 		case LOAD_PAGES_REQUEST:
 			return Object.assign({}, state, {
@@ -47,8 +49,8 @@ export function pages(state = initialState, action) {
 				isFetching: false,
 				didInvalidate: false,
 				list: [
-					...state.list,
-                    ...(action.list.filter(page => !arrayIncludesByID(state.list, page.index)))
+					...action.list
+                    // ...(action.list.filter(page => !arrayIncludesByID(state.list, page.index)))
 				],
 				lastUpdated: action.receivedAt
 			})
@@ -73,7 +75,7 @@ export function pages(state = initialState, action) {
 
 function arrayIncludesByID(array, id){
     for(let data of array){
-        if(data.index == id){
+        if(data.id == id){
             return true
         }
     }
