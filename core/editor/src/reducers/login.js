@@ -10,6 +10,6 @@ export function authentication(state = initialState, action) {
                 token:action.token
             })
         default:
-			return state;
+			return state
 	}
 }
