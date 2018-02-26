@@ -168,7 +168,7 @@ export function loadPagesFailure(data){
 }
 
 export function loadPages(){
-   const request = axios.get('pages.json')
+   const request = axios.get('http://localhost:3001/api/pages')
 
    return (dispatch) => {
        dispatch(loadPagesRequest())
