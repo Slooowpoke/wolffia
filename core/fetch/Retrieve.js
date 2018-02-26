@@ -36,6 +36,11 @@ export default class Retrieve {
         return response
     }
 
+    async createBlock(block){
+        let response = await this.connection.createBlock(block)
+        return response
+    }
+
     async updatePageData(blocks, pageID){
         let response = await this.connection.updatePageData(blocks, pageID)
         return response
