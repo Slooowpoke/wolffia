@@ -101,6 +101,23 @@ export default class Connection {
             ctx.throw(400, 'INVALID_DATA')
         }
     }
+
+    async queryForBlocks(pageID){
+        try {
+            const [blocks] = await this.db.execute('SELECT `page_data`.*,`blocks`.`template`,`blocks`.structure FROM `page_data` LEFT JOIN `blocks` ON `page_data`.`block`=`blocks`.`id` WHERE `page_data`.`page`= ?', [pageID])
+            for(let block of blocks){
+                // TODO Find a non-blocking method
+                block.data = JSON.parse(block.data)
+
+                block.structure = JSON.parse(block.structure)
+            }
+            return blocks
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
+
     async queryAllPageMetas(){
         try {
             const [meta] = await this.db.execute('SELECT * FROM `pages`')

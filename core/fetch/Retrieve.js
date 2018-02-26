@@ -15,6 +15,10 @@ export default class Retrieve {
         return pageMetas
     }
 
+    async getBlocksForPage(pageID){
+        let blocks = await this.connection.queryForBlocks(pageID)
+        return blocks
+    }
 
     async savePageMeta(title, name,template, pageID){
         let response = await this.connection.savePageMeta(title, name,template, pageID)
