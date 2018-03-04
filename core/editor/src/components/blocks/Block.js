@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import * as Actions from '../../actions/blocks'
-
 import * as FieldFactory from '../fields/FieldFactory'
 
 class Block extends Component {
@@ -33,21 +32,17 @@ class Block extends Component {
         return obj
     }
 
-	updateBlock = (e, field, name) => {
+	updateBlock = (updateValue, field, key) => {
 		const {dispatch} = this.props
-		let block = this.state.block
-		block.changed = true
-        console.log(name)
-        let object = this.getDescendantProp(block.data, 'posts.value[0].content.value')
-        if(object != undefined){
-            this.getDescendantProp(block.data, 'posts.value[0].content.value').value = e.target.value
-        }
+        let updatedBlock = this.state.block
+        updatedBlock.changed = true
+        updatedBlock.data[key].value = updateValue
 
-		this.setState({block: block})
+		this.setState({block: updatedBlock})
 
 		clearTimeout(this.timeout)
 		this.timeout = setTimeout(() => {
-			dispatch(Actions.updateBlock(this.state.block))
+			dispatch(Actions.updateBlock(updatedBlock))
 		}, 500)
 	}
 
@@ -66,7 +61,8 @@ class Block extends Component {
 	}
 
 	render() {
-		return (<div>
+		return (
+		<div>
 			{
 				Object.keys(this.state.block.data).map((key) => {
 					return FieldFactory.create(key, this.state.block.data[key], this.updateBlock)
