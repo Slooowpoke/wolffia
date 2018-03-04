@@ -21,13 +21,13 @@ class FieldHTML extends Field {
         let field = this.state.field
         field.value = e.target.value
         this.setState({field:field})
-        this.props.update(e, field, this.state.key)
+        this.props.update(field.value, field, this.state.key, this.props.index)
     }
 
 	render() {
         return (
             <textarea
-                key={this.props.field.name}
+                key={this.props.field.id}
                 name={this.props.field.name}
                 value={this.props.field.value}
                 onChange={(e) => this.update(e)}/>
