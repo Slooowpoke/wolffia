@@ -1,8 +1,18 @@
 import mysql from 'mysql2/promise'
 
+
 export default class Connection {
 
 	constructor() {
+	    this.knex = require('knex')({
+            client: 'mysql2',
+            connection: {
+                host : 'localhost',
+                user : 'root',
+                password : 'butts12',
+                database : 'wollfia'
+            }
+        })
         mysql.createConnection({host: 'localhost', user: 'root', password: 'butts12', database: 'wollfia'})
                     .then(db => this.db = db)
                     .catch(e => console.error(e))
@@ -10,19 +20,17 @@ export default class Connection {
 
     async dropPageData(block){
         try {
-            const [response] = await this.db.execute('DELETE FROM `page_data` WHERE `page_data`.`id` = ?', [block])
-            return block
+            return await this.knex('page_data').where({'id': block}).del()
         } catch (error) {
             console.log(error)
-            ctx.throw(400, 'INVALID_DATA')
         }
     }
 
     async updatePageData(blocks, pageID){
-        let currentBlocks = await this.queryForBlocks(pageID)
+        let currentBlocks = await this.fetchBlocksForPage(pageID)
         let blocksExist = [], blocksToBeCreated = []
         for(let updateBlock of blocks){
-            if(updateBlock.id != undefined){
+            if(updateBlock.id !== undefined){
                 blocksExist.push(updateBlock)
             }else{
                 blocksToBeCreated.push(updateBlock)
@@ -40,56 +48,66 @@ export default class Connection {
                 const [insertResponse] = await this.db.execute('INSERT INTO `page_data` (`page`, `name`, `block`, `data`) VALUES ( ?, ?, ?, ?)', [pageID, block.name, block.block, JSON.stringify(block.data)])
                 allResponses.push(insertResponse)
             }
-
             return allResponses
         } catch (error) {
             console.log(error)
-            ctx.throw(400, 'INVALID_DATA')
         }
     }
 
-    async getBlockStructure(id){
+    async fetchSingleBlockStructure(id){
         try {
-            const [response] = await this.db.execute('SELECT * FROM `blocks` WHERE id = ? LIMIT 1', [id])
-            response[0].structure = JSON.parse(response[0].structure)
-            return response[0]
+            let blockStructure = await this.knex.select('*').from('blocks').where({'id': id}).first()
+            blockStructure.structure = JSON.parse(blockStructure.structure)
+            return blockStructure
         } catch (error) {
             console.log(error)
-            ctx.throw(400, 'INVALID_DATA')
         }
     }
 
-    async blocksList(title, name, template){
+    async fetchListOfBlocks(){
         try {
-            const [response] = await this.db.execute('SELECT name, id FROM `blocks`')
-            return response
+	        return await this.knex.select('name', 'id').from('blocks')
         } catch (error) {
             console.log(error)
-            ctx.throw(400, 'INVALID_DATA')
         }
     }
 
-    async createBlock(block){
+    async insertPageData(data){
         try {
-            console.log(block)
-            const [response] = await this.db.execute('INSERT INTO `page_data` (`page`, `name`, `block`, `data`) VALUES ( ?, ?, ?, ?)', [block.page, block.name, block.structureID, block.data])
+            console.log(data.data)
 
-            return {block, id: response.insertId}
+            let response = await this.knex('page_data').insert({
+                page: data.page,
+                name: data.name,
+                block: data.block,
+                data: JSON.stringify(data.data)
+            }).returning('id')
+            console.log(response)
+
+            return {data, response}
         } catch (error) {
             console.log(error)
-            ctx.throw(400, 'INVALID_DATA')
         }
     }
 
-    async createPage(title, name, template){
+    async insertPage(title, name, template){
         try {
-            const [response] = await this.db.execute('INSERT INTO `pages` (`name`, `title`, `template`) VALUES ( ?, ?, ?)', [name, title, template])
-            console.log({title, name, template, id: response.insertId})
-            return {title, name, template, id: response.insertId}
+            let page = {
+                name,
+                title,
+                template
+            }
+            let id = await this.knex('pages').returning('id').insert(page)
+            return {page, id}
         } catch (error) {
             console.log(error)
-            ctx.throw(400, 'INVALID_DATA')
         }
+        // try {
+        //     const [response] = await this.db.execute('INSERT INTO `pages` (`name`, `title`, `template`) VALUES ( ?, ?, ?)', [name, title, template])
+        //     return {title, name, template, id: response.insertId}
+        // } catch (error) {
+        //     console.log(error)
+        // }
     }
 
     async savePageMeta(title, name, template, pageID){
@@ -98,63 +116,58 @@ export default class Connection {
             return response
         } catch (error) {
             console.log(error)
-            ctx.throw(400, 'INVALID_DATA')
         }
     }
 
-    async queryForBlocks(pageID){
+    async fetchBlocksForPage(pageID){
         try {
-            const [blocks] = await this.db.execute('SELECT `page_data`.*,`blocks`.`template`,`blocks`.structure FROM `page_data` LEFT JOIN `blocks` ON `page_data`.`block`=`blocks`.`id` WHERE `page_data`.`page`= ?', [pageID])
-            for(let block of blocks){
-                // TODO Find a non-blocking method
-                block.data = JSON.parse(block.data)
+            let blocks = await this.knex.select('page_data.*', 'blocks.template', 'blocks.structure')
+                                        .from('page_data')
+                                        .leftJoin('blocks', 'blocks.id', 'page_data.block')
+                                        .where({'page_data.page': pageID})
 
+            return blocks.map((block) => {
+                // TODO Find a non-blocking method of parsing json
+                // Does kNEX have anything?
+                block.data = JSON.parse(block.data)
                 block.structure = JSON.parse(block.structure)
-            }
-            return blocks
+                return block
+            })
         } catch (error) {
             console.log(error)
-            ctx.throw(400, 'INVALID_DATA')
         }
     }
 
-    async queryAllPageMetas(){
+    async fetchPageMetas(){
         try {
-            const [meta] = await this.db.execute('SELECT * FROM `pages`')
-            return meta
+            return await this.knex.select('*').from('pages')
         } catch (error) {
             console.log(error)
-            ctx.throw(400, 'INVALID_DATA')
         }
     }
 
-    async queryForPage(pagename){
+    async fetchPage(pagename){
         try {
-            const meta = await this.queryForPageMeta(pagename)
-
-			const [blocks] = await this.db.execute('SELECT `data`,`blocks`.`template` FROM `page_data` LEFT JOIN `blocks` ON `page_data`.`block`=`blocks`.`id` WHERE `page_data`.`page`= ?', [meta.id])
-
-            for(let block of blocks){
-                // TODO Find a non-blocking method
+            const meta = await this.fetchPageMeta(pagename)
+            let blocks = await this.knex.select('data', 'blocks.template').from('page_data').leftJoin('blocks', 'blocks.id', 'page_data.block').where({'page_data.page': meta.id})
+            blocks = blocks.map((block) => {
+                // TODO Find a non-blocking method of parsing json
+                // Does kNEX have anything?
                 block.data = JSON.parse(block.data)
-            }
-
-			return {meta, blocks}
-		} catch (error) {
-			console.log(error)
-			ctx.throw(400, 'INVALID_DATA')
-		}
+                return block
+            })
+            return {meta, blocks}
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-	async queryForPageMeta(pagename) {
-		try {
-			const [results, fields] = await this.db.execute('SELECT * FROM `pages` WHERE `name` = ? LIMIT 1', [pagename])
-
-			return results[0]
-		} catch (error) {
-			console.log(error)
-			ctx.throw(400, 'INVALID_DATA')
-		}
+	async fetchPageMeta(pagename) {
+        try {
+            return await this.knex.select('*').from('pages').where({'name': pagename}).first()
+        } catch (error) {
+            console.log(error)
+        }
 	}
 
 }
