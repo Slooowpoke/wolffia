@@ -1,26 +1,31 @@
 import Connection from './Connection'
 import Page from '../models/Page'
 import Block from '../models/Block'
+import FileWriter from './FileWriter'
 
 export default class Retrieve {
 
     constructor(){
         this.connection = new Connection()
+        this.filewriter = new FileWriter()
     }
 
     async getPage(pagename){
-        let {blocks, meta} = await this.connection.queryForPage(pagename)
+        let {blocks, meta} = await this.connection.fetchPage(pagename)
         return new Page(meta, blocks)
     }
 
     async getAllPageMetas(){
-        let pageMetas = await this.connection.queryAllPageMetas()
-        return pageMetas
+        return await this.connection.fetchPageMetas()
     }
 
     async getBlocksForPage(pageID){
-        let blocks = await this.connection.queryForBlocks(pageID)
+        let blocks = await this.connection.fetchBlocksForPage(pageID)
         return blocks
+    }
+
+    async getListOfBlocks(){
+        return await this.connection.fetchListOfBlocks()
     }
 
     async savePageMeta(title, name,template, pageID){
@@ -33,19 +38,15 @@ export default class Retrieve {
         return response
     }
 
-    async getBlocksList(){
-        let response = await this.connection.blocksList()
-        return response
-    }
+
 
     async getBlockStructure(id){
-        let response = await this.connection.getBlockStructure(id)
+        let response = await this.connection.fetchSingleBlockStructure(id)
         return response
     }
 
-    async createBlock(block){
-        let response = await this.connection.createBlock(block)
-        return response
+    async addBlockToPage(block){
+        return await this.connection.insertPageData(block)
     }
 
     async updatePageData(blocks, pageID){
@@ -55,6 +56,11 @@ export default class Retrieve {
 
     async dropPageData(block){
         let response = await this.connection.dropPageData(block)
+        return response
+    }
+
+    async uploadFile(file, name){
+        let response = await this.filewriter.writeFile(file, name)
         return response
     }
 }
