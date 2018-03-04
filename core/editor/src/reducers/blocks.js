@@ -5,7 +5,8 @@ import {
     CREATE_BLOCK,
     UPDATE_BLOCK,
     DELETE_BLOCK_SUCCESS,
-    CREATE_BLOCK_EDITOR
+    CREATE_BLOCK_EDITOR,
+    CLEAR_CURRENT_EDITOR
 } from '../actions/blocks'
 
 const initialState = {
@@ -29,12 +30,16 @@ export function blocks(state = initialState, action) {
 			})
         case UPDATE_BLOCK:
             if(action.blockID == undefined){
-                console.log(action.block.id)
-                return Object.assign({}, state, {
-                    list: [
-                        ...state.list, action.block
+
+                return {
+                    ...state,
+                    list:[
+                        ...state.list, {
+                            ...action.block,
+                            id: action.createID
+                        }
                     ]
-                })
+                }
             }else{
                 return Object.assign({}, state, {
                     list: state.list.map(block => {
@@ -71,6 +76,11 @@ export function blocks(state = initialState, action) {
                 error: action.error,
 				lastUpdated: action.receivedAt
 			})
+        case CLEAR_CURRENT_EDITOR:
+            return {
+                ...state,
+                currentEditorBlock:null
+            }
 		default:
 			return state
 	}
