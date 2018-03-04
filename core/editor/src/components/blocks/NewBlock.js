@@ -32,7 +32,18 @@ class NewBlock extends Component {
         block.data[name].value = e.target.value
         block.changed = true
         this.setState({block: block})
-        block.id = undefined
+	generateDataObject(block){
+	    let data = {}
+        Object.keys(block.structure).map((key,index) => {
+            if(block.structure[key].hasOwnProperty('structure')){
+                data[key] = {value: [], type: block.structure[key].type, objectToCreate:this.generateDataObject(block.structure[key])}
+            }else{
+                // TODO add something for default values from structure file :)
+                data[key] = {value: '', type: block.structure[key].type}
+            }
+        })
+        return data
+    }
 
     }
 
