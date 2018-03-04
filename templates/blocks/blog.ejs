@@ -4,19 +4,21 @@
 	<% for(let post of posts.value){ %>
 		<li>
 			<%- post.title.value %>
-				<%- post.content.value %>
-					<br>
-					<% if(post.posts != undefined){ %>
-						<ul>
-							<% for(let anotherpost of post.posts.value){ %>
-								<li>
-									<%- anotherpost.title.value %>
-										<%- anotherpost.content.value %>
-								</li>
-								<% } %>
-						</ul>
-
-						<% } %>
+			<%- post.content.value %>
+            <% if(post.image != undefined){ %>
+                <img src='<%- post.image.value %>' />
+            <% } %>
+			<br>
+			<% if(post.posts != undefined){ %>
+				<ul>
+					<% for(let anotherpost of post.posts.value){ %>
+	                    <li>
+                        <%- anotherpost.title.value %>
+						<%- anotherpost.content.value %>
+						</li>
+					<% } %>
+				</ul>
+			<% } %>
 		</li>
-		<% } %>
-			</u>
+	<% } %>
+</u>

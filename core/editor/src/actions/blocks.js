@@ -24,11 +24,53 @@ export const
     CREATE_BLOCK_EDITOR = 'CREATE_BLOCK_EDITOR',
     FETCH_BLOCK_DETAILS = 'FETCH_BLOCK_DETAILS',
     SAVE_BLOCKS_REQUEST = 'SAVE_BLOCKS_REQUEST',
+    SAVE_BLOCKS_SUCCESS = 'SAVE_BLOCKS_SUCCESS',
     SAVE_BLOCKS_FAILURE = 'SAVE_BLOCKS_FAILURE',
 
     DELETE_BLOCK_REQUEST = 'DELETE_BLOCK_REQUEST',
     DELETE_BLOCK_SUCCESS = 'DELETE_BLOCK_SUCCESS',
-    DELETE_BLOCK_FAILURE = 'DELETE_BLOCK_FAILURE'
+    DELETE_BLOCK_FAILURE = 'DELETE_BLOCK_FAILURE',
+    CLEAR_CURRENT_EDITOR = 'CLEAR_CURRENT_EDITOR',
+
+    SAVE_NEW_BLOCK_REQUEST = 'SAVE_NEW_BLOCK_REQUEST',
+    SAVE_NEW_BLOCK_SUCCESS = 'SAVE_NEW_BLOCK_SUCCESS',
+    SAVE_NEW_BLOCK_FAILURE = 'SAVE_NEW_BLOCK_FAILURE'
+
+// export function saveNewBlock(block) {
+//     return async dispatch => {
+//         // TODO Add the id to the url when we have access to the real API
+//         let url = 'http://localhost:3001/api/page'
+//         const response = await axios.get(url)
+//         let data = response.data
+//         dispatch({type: SAVE_NEW_BLOCK_REQUEST, url})
+//
+//         try {
+//             let response = await saveNewBlockRequest(url);
+//             dispatch(saveNewBlockSuccess({
+//                 ...response
+//             }));
+//         } catch (e) {
+//             console.log(e)
+//             dispatch(saveNewBlockFailure(e));
+//         }
+//     }
+// }
+
+function saveNewBlockSuccess(details) {
+    return dispatch => {
+        dispatch({type: SAVE_NEW_BLOCK_SUCCESS, details})
+    }
+}
+function saveNewBlockFailure(error) {
+    return {type: SAVE_NEW_BLOCK_FAILURE, error}
+}
+
+
+export function clearCurrentEditor(){
+	return{
+		type:CLEAR_CURRENT_EDITOR
+	}
+}
 
 export function deleteBlock(pageID, blockID) {
 	const request = axios.post('http://localhost:3001/api/page/' + pageID + '/blocks/' + blockID + '/delete')
@@ -146,19 +188,45 @@ export function loadBlocksFailure(error) {
 
 export function updateBlock(block) {
     let pageID, blockID
-    if(block.id){
+    if(block.id != undefined){
         pageID = block.page
         blockID = block.id
+
+        return {
+            type: UPDATE_BLOCK,
+            pageID,
+            blockID,
+            block
+        }
     }else{
         pageID = block.page
+        return async (dispatch) => {
+            let url = 'http://localhost:3001/api/pages/' + pageID + '/blocks/create'
+            console.log(block.data)
+            // block.data = JSON.stringify(block.data)
+            dispatch({type: SAVE_NEW_BLOCK_REQUEST, url})
+            try {
+                console.log(block.data)
+                const response = await axios.post(url,block)
+                let id = response.data.response[0]
+                console.log('block id')
+                console.log(id)
+
+                dispatch({type: CLEAR_CURRENT_EDITOR})
+                dispatch({
+                    type: UPDATE_BLOCK,
+                    pageID,
+                    createID: id,
+                    block
+                })
+            } catch (e) {
+                console.log(e)
+                dispatch(saveNewBlockFailure(e));
+            }
+        }
+
     }
 
-    return {
-        type: UPDATE_BLOCK,
-        pageID,
-        blockID,
-        block
-    }
 }
 
 export function saveBlocks(blocks, pageID) {
