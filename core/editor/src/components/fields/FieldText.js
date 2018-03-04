@@ -21,12 +21,12 @@ class FieldText extends Field {
         let field = this.state.field
         field.value = e.target.value
         this.setState({field:field})
-        this.props.update(e, field, this.state.key)
+        this.props.update(field.value, field, this.state.key, this.props.index)
     }
 
 	render() {
         return (
-            <input key={this.props.field.name}
+            <input key={this.state.key}
                 type='text'
                 name={this.props.field.name}
                 value={this.props.field.value}
