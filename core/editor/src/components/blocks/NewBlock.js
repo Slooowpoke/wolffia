@@ -45,6 +45,18 @@ class NewBlock extends Component {
         return data
     }
 
+    updateBlock = (value,field, key) => {
+	    console.log('update block')
+	    console.log(field)
+        console.log(value)
+        console.log(key)
+        let updatedBlock = this.state.block
+        updatedBlock.changed = true
+        updatedBlock.data[key].value = value
+
+        updatedBlock.id = undefined
+        console.log(updatedBlock)
+        this.setState({block: updatedBlock})
     }
 
     getDescendantProp(obj, desc) {
