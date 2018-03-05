@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {push} from 'react-router-redux'
 
 export const
     LOAD_BLOCKS = 'LOAD_BLOCKS',
@@ -80,7 +79,7 @@ export function deleteBlock(pageID, blockID) {
 
 		request.then(({data}) => {
 			if (data != undefined) {
-				dispatch(deleteBlockSuccess(data))
+				dispatch(deleteBlockSuccess(blockID))
 			} else {
 				throw('No blocks available')
 			}
@@ -96,7 +95,7 @@ export function deleteBlockRequest() {
 }
 
 export function deleteBlockSuccess(data) {
-	return {type: DELETE_BLOCK_SUCCESS, remove: parseInt(data)}
+	return {type: DELETE_BLOCK_SUCCESS, remove: data}
 }
 
 export function deleteBlockFailure(error) {
