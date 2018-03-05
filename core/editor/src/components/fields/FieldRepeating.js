@@ -38,6 +38,17 @@ class FieldRepeating extends Field {
         return obj
     }
 
+    deleteRow(e, deletionIndex){
+		let updatedField = this.state.field
+		updatedField.value = updatedField.value.filter((object, index) => {
+			if(index != deletionIndex){
+				return object
+			}
+		})
+		this.setState({field:updatedField})
+		this.props.update(updatedField.value, updatedField, this.state.key, this.props.index)
+	}
+
 	render() {
 		if(this.props.field.value.length === 0){
 			return (
@@ -55,9 +66,14 @@ class FieldRepeating extends Field {
                     <br /><br />
                 {
                     this.state.field.value.map((object, index) => {
-                        return Object.keys(object).map((key) => {
-                            return FieldFactory.create(key, object[key], this.update, index)
-                        })
+                    	return (
+                    		<div>
+                                <button onClick={(e) => this.deleteRow(e, index)}>delete row</button>
+								{Object.keys(object).map((key) => {
+                                    return FieldFactory.create(key, object[key], this.update, index)
+                                })}
+							</div>
+						)
                     })
                 }
             	</div>
