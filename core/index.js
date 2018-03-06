@@ -31,12 +31,6 @@ const pages = {
     },
 }
 
-// Page routes
-app.use(router.get('/wf-editor', pages.editor))
-
-app.use(router.get('/', pages.home))
-app.use(router.get('/about', pages.about))
-
 // TODO Authentication on API Routes
 const api = {
     getAllPagesMeta: async(ctx) => {
@@ -106,6 +100,11 @@ const api = {
 
 }
 
+// Page routes
+app.use(router.get('/wf-editor', pages.editor))
+
+app.use(router.get('/', pages.home))
+app.use(router.get('/about', pages.about))
 
 // API Routes
 app.use(router.get('/api/pages', api.pages))
