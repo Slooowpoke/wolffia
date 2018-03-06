@@ -39,15 +39,26 @@ app.use(router.get('/about', pages.about))
 
 // TODO Authentication on API Routes
 const api = {
-	pages: async(ctx) => {
+    getAllPagesMeta: async(ctx) => {
         ctx.set('Access-Control-Allow-Origin', 'http://localhost:3000')
-        let pages = await retriever.getAllPageMetas()
-    	ctx.body = JSON.stringify(pages)
+        let pageMetas = await retriever.getAllPageMetas()
+    	ctx.body = JSON.stringify(pageMetas)
 	},
-    blocks: async(ctx, pageID) => {
+
+    getBlocksForPage: async(ctx, pageID) => {
         ctx.set('Access-Control-Allow-Origin', 'http://localhost:3000')
-        let blocks = await retriever.getBlocksForPage(pageID)
-        ctx.body = JSON.stringify(blocks)
+        let pageBlocks = await retriever.getBlocksForPage(pageID)
+        ctx.body = JSON.stringify(pageBlocks)
+    },
+
+    getListOfBlocks: async(ctx) => {
+        let listOfBlocks = await retriever.getListOfBlocks()
+        ctx.body = JSON.stringify(listOfBlocks)
+    },
+
+    getBlockStructure: async(ctx, id) => {
+        let requestBody = ctx.request.body
+        ctx.body = JSON.stringify(await retriever.getBlockStructure(id))
     },
 
     savePageMeta: async(ctx, pageID) => {
