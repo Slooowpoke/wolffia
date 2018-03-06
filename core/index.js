@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import Connection from './fetch/Connection'
 import Retrieve from './fetch/Retrieve'
 import Koa from 'koa'
@@ -11,6 +12,7 @@ const cors = require('@koa/cors')
 const serve = require('koa2-static-middleware');
 const app = new Koa()
 const retriever = new Retrieve()
+
 
 app.use(views('./templates', {extension: 'ejs'}))
 app.use(bodyParser())
@@ -70,19 +72,13 @@ const api = {
         ctx.body = JSON.stringify(await retriever.createPage(requestBody.title, requestBody.name,requestBody.template))
     },
 
-    blocksList: async(ctx) => {
-        ctx.body = JSON.stringify(await retriever.getBlocksList())
-    },
 
-    getBlockStructure: async(ctx, id) => {
-        let requestBody = ctx.request.body
-        ctx.body = JSON.stringify(await retriever.getBlockStructure(id))
-    },
-
-    createBlock: async(ctx) => {
+    addBlockToPage: async(ctx) => {
+        ctx.set('Access-Control-Allow-Origin', 'http://localhost:3000')
         ctx.accepts('application/json')
         let requestBody = ctx.request.body
-        ctx.body = JSON.stringify(await retriever.createBlock(requestBody))
+       
+        ctx.body = JSON.stringify(await retriever.addBlockToPage(requestBody))
     },
 
     updatePageData: async(ctx, id) => {
@@ -96,8 +92,15 @@ const api = {
         ctx.accepts('application/json')
         let requestBody = ctx.request.body
         ctx.body = JSON.stringify(await retriever.dropPageData(blockID))
-    }
+    },
+
+    uploadFile: async(ctx) => {
+        let requestBody = ctx.request.body
+        if ('POST' != ctx.method) return await next()
         const {files, fields} = await asyncBusboy(ctx.req)
+
+        ctx.body = JSON.stringify(await retriever.uploadFile(files[0], fields.name))
+    },
 
 }
 
@@ -108,16 +111,19 @@ app.use(router.get('/', pages.home))
 app.use(router.get('/about', pages.about))
 
 // API Routes
-app.use(router.get('/api/pages', api.pages))
-app.use(router.get('/api/pages/:pageID/blocks', api.blocks))
-app.use(router.get('/api/blocks', api.blocksList))
+app.use(router.get('/api/pages', api.getAllPagesMeta))
+app.use(router.get('/api/pages/:pageID/blocks', api.getBlocksForPage))
+app.use(router.get('/api/blocks', api.getListOfBlocks))
 app.use(router.get('/api/blocks/:id', api.getBlockStructure))
 
 app.use(router.post('/api/page/:pageID/blocks/:blockID/delete', api.deletePageData))
 app.use(router.post('/api/page/:pageID/blocks', api.updatePageData))
 app.use(router.post('/api/pages/:pageID/meta/save', api.savePageMeta))
+app.use(router.post('/api/pages/:pageID/blocks/create', api.addBlockToPage))
 app.use(router.post('/api/pages/create', api.createPage))
-app.use(router.post('/api/blocks/create', api.createBlock))
 
+app.use(router.post('/api/upload', api.uploadFile))
+
+app.use(serve('./public'))
 
 app.listen(3001)
