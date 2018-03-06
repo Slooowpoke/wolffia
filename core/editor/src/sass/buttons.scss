@@ -1,0 +1,23 @@
+@import "colours";
+
+.btn{
+  font-family: 'Nunito', sans-serif;
+  background: none;
+  border:none;
+  border: 1px solid $accent;
+  padding: 10px 30px;
+  border-radius: 4px;
+  font-weight:700;
+  font-size:13px;
+  cursor: pointer;
+
+  &.btn-primary{
+    background-color:$red;
+    color:#fff;
+  }
+
+  &.btn-outline{
+    border-color:$green;
+    color:$gray;
+  }
+}
