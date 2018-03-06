@@ -4,6 +4,7 @@ import Retrieve from './fetch/Retrieve'
 import Koa from 'koa'
 import asyncBusboy from 'async-busboy';
 
+const ejs = require('ejs')
 const router = require('koa-route')
 const views = require('koa-views')
 const bodyParser = require('koa-bodyparser')
@@ -21,12 +22,23 @@ app.use(cors())
 const pages = {
 	home: async(ctx) => {
         ctx.state.page = await retriever.getPage('home')
+        ctx.state.getBlock = (name, data) => {
+
+            return data[0].template;
+        }
+
         await ctx.render(ctx.state.page.meta.template, ctx.state.page)
 	},
     about: async(ctx) => {
         // ctx.body = JSON.stringify({heading: 'test'})
         ctx.state.page = await retriever.getPage('about')
-        console.log()
+
+        ctx.state.page.blocks = ctx.state.page.blocks.map((block, key) => {
+            return ejs.renderFile('./templates' + block.template, block.data, {}, (err, html) => {
+                return html
+            });
+        })
+
         await ctx.render(ctx.state.page.meta.template, ctx.state.page)
     },
     editor: async(ctx) => {
