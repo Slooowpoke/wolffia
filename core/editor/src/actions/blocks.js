@@ -35,26 +35,6 @@ export const
     SAVE_NEW_BLOCK_SUCCESS = 'SAVE_NEW_BLOCK_SUCCESS',
     SAVE_NEW_BLOCK_FAILURE = 'SAVE_NEW_BLOCK_FAILURE'
 
-// export function saveNewBlock(block) {
-//     return async dispatch => {
-//         // TODO Add the id to the url when we have access to the real API
-//         let url = 'http://localhost:3001/api/page'
-//         const response = await axios.get(url)
-//         let data = response.data
-//         dispatch({type: SAVE_NEW_BLOCK_REQUEST, url})
-//
-//         try {
-//             let response = await saveNewBlockRequest(url);
-//             dispatch(saveNewBlockSuccess({
-//                 ...response
-//             }));
-//         } catch (e) {
-//             console.log(e)
-//             dispatch(saveNewBlockFailure(e));
-//         }
-//     }
-// }
-
 function saveNewBlockSuccess(details) {
     return dispatch => {
         dispatch({type: SAVE_NEW_BLOCK_SUCCESS, details})
