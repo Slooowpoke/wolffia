@@ -38,7 +38,7 @@ class FieldImage extends Field {
             let newFilename = 'test' + '.' + extension
             dispatch(FileActions.uploadFile(file, newFilename))
             field.value = '/uploads/' + newFilename
-            this.props.update(field.value, field, this.state.key)
+            this.props.update(field.value, field, this.state.key, this.props.index)
         }
         reader.readAsDataURL(file)
     }
