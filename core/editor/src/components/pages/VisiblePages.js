@@ -22,7 +22,12 @@ class VisiblePages extends Component {
         if(!this.props.list){
             return (
                 <div>
-                    <p>No pages created yet.</p>
+                    <div className="row">
+                        <div className="col">
+                            <p>No pages created yet.</p>
+                        </div>
+                    </div>
+
                     <NewPage createPage={this.createPage}/>
                 </div>
             )
@@ -32,9 +37,13 @@ class VisiblePages extends Component {
                 <NewPage createPage={this.createPage}/>
                 {this.props.list.map((page,index) => {
         			return (
-                        <div key={index}>
-                            <p>{page.name} - {page.title}</p>
-                            <button onClick={(e) => this.editPage(page.id, e)}>Edit page</button>
+                        <div key={index} className="row">
+                            <div className="col col-sm-6">
+                                <p>{page.name} - {page.title}</p>
+                            </div>
+                            <div className="col col-sm-6">
+                                <button onClick={(e) => this.editPage(page.id, e)} className="btn btn-primary align-right">Edit page</button>
+                            </div>
                         </div>
         			)
         		})}
