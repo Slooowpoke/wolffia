@@ -8,6 +8,7 @@ const views = require('koa-views')
 const bodyParser = require('koa-bodyparser')
 const cors = require('@koa/cors')
 
+const serve = require('koa2-static-middleware');
 const app = new Koa()
 const retriever = new Retrieve()
 
