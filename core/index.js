@@ -1,6 +1,8 @@
 import Connection from './fetch/Connection'
 import Retrieve from './fetch/Retrieve'
 import Koa from 'koa'
+import asyncBusboy from 'async-busboy';
+
 const router = require('koa-route')
 const views = require('koa-views')
 const bodyParser = require('koa-bodyparser')
@@ -89,6 +91,8 @@ const api = {
         let requestBody = ctx.request.body
         ctx.body = JSON.stringify(await retriever.dropPageData(blockID))
     }
+        const {files, fields} = await asyncBusboy(ctx.req)
+
 }
 
 
