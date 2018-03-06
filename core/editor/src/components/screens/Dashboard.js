@@ -12,8 +12,12 @@ class Dashboard extends Component {
 
 	render() {
 		return (
-			<div>
-                <p>Welcome blah, make something special.</p>
+			<div className="container">
+				<div className="row">
+					<div className="col col-sm-6">
+                        <p>Welcome blah, make something special.</p>
+					</div>
+				</div>
                 <VisiblePages />
 			</div>
 		)
