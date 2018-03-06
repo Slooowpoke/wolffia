@@ -13,7 +13,7 @@ class NewPage extends Component {
 
 	render() {
         return (
-            <div>
+            <div className="row">
                 <input type="text" name="title" value={this.state.title} onChange={this.onChangeTitle}/>
                 <input type="text" name="name" value={this.state.name} onChange={this.onChangeName}/>
                 <input type="text" name="name" value={this.state.template} onChange={this.onChangeTemplate}/>
