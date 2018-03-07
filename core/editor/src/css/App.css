@@ -1,5 +1,32 @@
+.btn {
+  font-family: 'Nunito', sans-serif;
+  background: none;
+  border: none;
+  border: 1px solid #ced1cc;
+  padding: 10px 30px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer; }
+  .btn.btn-primary {
+    background-color: #ff5a5f;
+    color: #fff; }
+  .btn.btn-outline {
+    border-color: #007a87;
+    color: #565a5c; }
+
 body {
-  margin: 0; }
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  letter-spacing: 1px; }
+
+.align-right {
+  display: flex;
+  margin-left: auto; }
+
+.align-left {
+  display: flex;
+  margin-right: auto; }
 
 .video {
   width: 50%; }

@@ -36,7 +36,7 @@ const pages = {
         ctx.state.page.blocks = ctx.state.page.blocks.map((block, key) => {
             return ejs.renderFile('./templates' + block.template, block.data, {}, (err, html) => {
                 return html
-            });
+            })
         })
 
         await ctx.render(ctx.state.page.meta.template, ctx.state.page)
