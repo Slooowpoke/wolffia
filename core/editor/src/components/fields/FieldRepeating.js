@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import * as Actions from '../../actions/blocks'
@@ -30,13 +30,6 @@ class FieldRepeating extends Field {
 		this.setState({field: field})
 		this.props.update(field.value, field, this.state.key, this.props.index)
 	}
-
-    getDescendantProp(obj, desc) {
-        var arr = desc.split('.')
-        while (arr.length && (obj = obj[arr.shift()]))
-            ;
-        return obj
-    }
 
     deleteRow(e, deletionIndex){
 		let updatedField = this.state.field

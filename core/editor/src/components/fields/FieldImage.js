@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import * as Actions from '../../actions/blocks'
@@ -44,8 +44,7 @@ class FieldImage extends Field {
     }
 
 	render() {
-	    let imagePreviewURL = ('http://localhost:3001/' + this.state.field.value)
-	    if(this.state.field.value == undefined){
+	    if(this.state.field.value === undefined){
 	        return (
                 <input
                     key={this.props.field.id}

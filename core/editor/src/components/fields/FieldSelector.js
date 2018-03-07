@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import * as Actions from '../../actions/blocks'
-import Field from './Field'
 import { Button, Wrapper, Menu, MenuItem } from 'react-aria-menubutton';
 
 class FieldSelector extends Component{

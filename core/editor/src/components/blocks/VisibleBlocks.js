@@ -5,7 +5,6 @@ import * as Actions from '../../actions/blocks'
 import Block from './Block'
 import NewBlock from './NewBlock'
 import FieldSelector from '../fields/FieldSelector'
-import Field from '../fields/Field'
 
 class VisibleBlocks extends Component {
 
@@ -20,7 +19,7 @@ class VisibleBlocks extends Component {
         dispatch(Actions.fetchBlocksList())
 	}
 
-    createBlock = (e, blockType) =>{
+    createBlock = () =>{
         const { dispatch } = this.props
         dispatch(Actions.createBlockEditor(this.state.selectedType.id, this.props.pageID))
     }
@@ -40,7 +39,7 @@ class VisibleBlocks extends Component {
         		})}
                 {this.props.currentEditorBlock && <NewBlock block={this.props.currentEditorBlock}/>}
                 <FieldSelector selectType={this.selectType}/>
-                <button onClick={(e) => this.createBlock(e, this.state.selectedType.name)} >Create block</button>
+                <button onClick={this.createBlock} >Create block</button>
                 <button onClick={this.saveBlocks}>Save Blocks</button>
 			</div>
 		)

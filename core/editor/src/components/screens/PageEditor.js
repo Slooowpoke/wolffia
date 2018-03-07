@@ -29,7 +29,8 @@ class PageEditor extends Component {
     getPageByID = (array, id) =>{
         for(let i = 0; i < array.length; i++){
             let page = array[i]
-            if(page.id == id){
+
+            if(page.id === parseInt(id)){
                 return i
             }
         }

@@ -5,19 +5,13 @@ import FieldHTML from './FieldHTML'
 import FieldImage from './FieldImage'
 
 export function create(name, field, updateBlock, index){
-    if (field.type == 'text') {
+    if (field.type === 'text') {
         return (<FieldText key={field} field={field} name={name} update={updateBlock} index={index}/>)
-    } else if (field.type == 'repeating') {
+    } else if (field.type === 'repeating') {
         return (<FieldRepeating key={name} field={field} name={name} update={updateBlock} index={index}/>)
-    } else if (field.type == 'html') {
+    } else if (field.type === 'html') {
         return (<FieldHTML key={name} field={field} name={name} update={updateBlock} index={index}/>)
-    } else if (field.type == 'image') {
+    } else if (field.type === 'image') {
         return (<FieldImage key={name} field={field} name={name} update={updateBlock} index={index}/>)
     }
-}
-
-export function test(){
-    return (
-        <p>test</p>
-    )
 }

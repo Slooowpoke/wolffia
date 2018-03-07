@@ -13,9 +13,9 @@ class Block extends Component {
 
 		let block = this.props.block
 
-		Object.keys(block.data).map((key, index) => {
-			Object.keys(block.structure).map((structureKey, index) => {
-				if (key == structureKey) {
+		Object.keys(block.data).map((key) => {
+			Object.keys(block.structure).map((structureKey) => {
+				if (key === structureKey) {
 					block.data[key].type = this.props.block.structure[structureKey].type
 				}
 			})
@@ -25,12 +25,6 @@ class Block extends Component {
 			block
 		}
 	}
-
-    getDescendantProp(obj, desc) {
-        var arr = desc.split('.')
-        while(arr.length && (obj = obj[arr.shift()]));
-        return obj
-    }
 
 	updateBlock = (updateValue, field, key) => {
 		const {dispatch} = this.props
@@ -44,15 +38,6 @@ class Block extends Component {
 		this.timeout = setTimeout(() => {
 			dispatch(Actions.updateBlock(updatedBlock))
 		}, 500)
-	}
-
-
-
-	getDescendantProp(obj, desc) {
-		var arr = desc.split('.')
-		while (arr.length && (obj = obj[arr.shift()]))
-		;
-		return obj
 	}
 
 	deleteThisBlock = () => {

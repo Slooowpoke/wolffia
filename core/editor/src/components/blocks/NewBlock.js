@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import * as Actions from '../../actions/blocks'
-
 import * as FieldFactory from '../fields/FieldFactory'
 
 class NewBlock extends Component {
@@ -37,23 +36,13 @@ class NewBlock extends Component {
 
     updateBlock = (value,field, key) => {
 	    console.log('update block')
-	    console.log(field)
-        console.log(value)
-        console.log(key)
+
         let updatedBlock = this.state.block
         updatedBlock.changed = true
         updatedBlock.data[key].value = value
-
         updatedBlock.id = undefined
-        console.log(updatedBlock)
-        this.setState({block: updatedBlock})
-    }
 
-    getDescendantProp(obj, desc) {
-        var arr = desc.split('.')
-        while (arr.length && (obj = obj[arr.shift()]))
-        ;
-        return obj
+        this.setState({block: updatedBlock})
     }
 
     saveNewBlock = () => {
