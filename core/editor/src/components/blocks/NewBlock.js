@@ -53,13 +53,16 @@ class NewBlock extends Component {
 
 	render() {
         return (
-            <div>
-                <button onClick={this.saveNewBlock}>Save this new block</button>
+            <div className="col">
+                <div className="block-outline">
+                    <span className="box-label">Creating new: {this.state.block.name}</span>
+                <button className="btn btn-primary align-right btn-full" onClick={this.saveNewBlock}>Save this new block</button>
                 {
                     Object.keys(this.state.block.data).map((key) => {
                         return FieldFactory.create(key, this.state.block.data[key], this.updateBlock)
                     })
                 }
+                </div>
             </div>
         )
 	}
