@@ -54,7 +54,7 @@ class FieldRepeating extends Field {
 			)
 		}else{
             return (
-            	<div key={this.state.key}>
+            	<div className="col" key={this.state.key}>
                     <button onClick={this.addRow}>Add row</button>
                     <br /><br />
                 {

@@ -26,11 +26,13 @@ class FieldText extends Field {
 
 	render() {
         return (
-            <input key={this.state.key}
-                type='text'
-                name={this.props.field.name}
-                value={this.props.field.value}
-                onChange={(e) => this.update(e)}/>
+            <div className="col">
+                <input key={this.state.key}
+                       type='text'
+                       name={this.props.field.name}
+                       value={this.props.field.value}
+                       onChange={(e) => this.update(e)}/>
+            </div>
         )
 	}
 }

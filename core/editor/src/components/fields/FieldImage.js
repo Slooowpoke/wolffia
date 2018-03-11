@@ -46,6 +46,7 @@ class FieldImage extends Field {
 	render() {
 	    if(this.state.field.value === undefined){
 	        return (
+                <div className="col">
                 <input
                     key={this.props.field.id}
                     name={this.props.field.name}
@@ -55,10 +56,11 @@ class FieldImage extends Field {
                     accept={this.props.types}
                     ref={(ref) => this.fileUpload = ref}
                     onChange={this.update}/>
+                </div>
             )
         }
         return (
-            <div>
+            <div className="col">
                 <img src={'http://localhost:3001/' + this.state.field.value} className='aspect-ratio'/>
                 <p>Change image</p>
                 <input

@@ -26,11 +26,13 @@ class FieldHTML extends Field {
 
 	render() {
         return (
-            <textarea
-                key={this.props.field.id}
-                name={this.props.field.name}
-                value={this.props.field.value}
-                onChange={(e) => this.update(e)}/>
+            <div className="col">
+                <textarea
+                    key={this.props.field.id}
+                    name={this.props.field.name}
+                    value={this.props.field.value}
+                    onChange={(e) => this.update(e)}/>
+            </div>
         )
 	}
 }
