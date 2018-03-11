@@ -30,13 +30,12 @@ class FieldSelector extends Component{
         });
         return (
             <Wrapper
-                className='MyMenuButton'
                 onSelection={this.handleSelection}
             >
-                <Button className='MyMenuButton-button'>
-                    click me
+                <Button className='btn btn-outline'>
+                    Select Block
                 </Button>
-                <Menu className='MyMenuButton-menu'>
+                <Menu className='dropdown-menu'>
                     <ul>{menuItems}</ul>
                 </Menu>
             </Wrapper>
