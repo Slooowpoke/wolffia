@@ -14,10 +14,43 @@ class NewPage extends Component {
 	render() {
         return (
             <div className="row">
-                <input type="text" name="title" value={this.state.title} onChange={this.onChangeTitle}/>
-                <input type="text" name="name" value={this.state.name} onChange={this.onChangeName}/>
-                <input type="text" name="name" value={this.state.template} onChange={this.onChangeTemplate}/>
-                <button onClick={this.save}>Create page</button>
+                <div className="col">
+                    <div className="block-outline">
+                        <span className="box-label">Create a new page</span>
+                        <div className="row">
+                        <div className="col col-sm-4">
+                            <label>
+                                <span>
+                                Page Title:
+                                </span>
+                                <input type="text" name="title" value={this.state.title} onChange={this.onChangeTitle}/>
+                            </label>
+                        </div>
+                        <div className="col col-sm-4">
+                        <label>
+                            <span>
+                                Page Name:
+                            </span>
+                            <input type="text" name="name" value={this.state.name} onChange={this.onChangeName}/>
+                        </label>
+                        </div>
+                        <div className="col col-sm-4">
+                        <label>
+                            <span>
+                              Page Template:
+                            </span>
+                            <input type="text" name="name" value={this.state.template} onChange={this.onChangeTemplate}/>
+                        </label>
+                        </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <button className="btn btn-outline align-right margin-top" onClick={this.save}>Create page</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         )
 	}
