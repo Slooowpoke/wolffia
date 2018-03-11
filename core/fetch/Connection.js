@@ -1,6 +1,5 @@
 import mysql from 'mysql2/promise'
 
-
 export default class Connection {
 
 	constructor() {
@@ -102,12 +101,6 @@ export default class Connection {
         } catch (error) {
             console.log(error)
         }
-        // try {
-        //     const [response] = await this.db.execute('INSERT INTO `pages` (`name`, `title`, `template`) VALUES ( ?, ?, ?)', [name, title, template])
-        //     return {title, name, template, id: response.insertId}
-        // } catch (error) {
-        //     console.log(error)
-        // }
     }
 
     async savePageMeta(title, name, template, pageID){
