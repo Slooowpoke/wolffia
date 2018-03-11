@@ -35,18 +35,25 @@ class VisiblePages extends Component {
 		return (
 			<div>
                 <NewPage createPage={this.createPage}/>
-                {this.props.list.map((page,index) => {
-        			return (
-                        <div key={index} className="row">
-                            <div className="col col-sm-6">
-                                <p>{page.name} - {page.title}</p>
-                            </div>
-                            <div className="col col-sm-6">
-                                <button onClick={(e) => this.editPage(page.id, e)} className="btn btn-primary align-right">Edit page</button>
-                            </div>
-                        </div>
-        			)
-        		})}
+                <div className="row">
+                    <div className="col">
+                    <div className="block-outline">
+                        <span className="box-label">Pages</span>
+                        {this.props.list.map((page,index) => {
+                            return (
+                                <div key={index} className="row">
+                                    <div className="col col-sm-6">
+                                        <p>{page.name} - {page.title}</p>
+                                    </div>
+                                    <div className="col col-sm-6">
+                                        <button onClick={(e) => this.editPage(page.id, e)} className="btn btn-primary align-right">Edit Page</button>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    </div>
+                </div>
 			</div>
 		)
 	}
