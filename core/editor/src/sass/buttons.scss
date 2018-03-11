@@ -1,23 +1,36 @@
 @import "colours";
 
 .btn{
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Karla', sans-serif;
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.06);
   background: none;
   border:none;
-  border: 1px solid $accent;
   padding: 10px 30px;
   border-radius: 4px;
   font-weight:700;
   font-size:13px;
   cursor: pointer;
+  margin: 0;
+
+  &.btn-full{
+    width:100%;
+  }
 
   &.btn-primary{
     background-color:$red;
     color:#fff;
+
+    &:hover{
+      background-color:darken($red, 5%) ;
+    }
   }
 
   &.btn-outline{
-    border-color:$green;
+    border: 1px solid rgba(0,0,0,0.1);
     color:$gray;
+    &:hover{
+      background-color:lighten($gray, 20%);
+      color:#fff;
+    }
   }
 }
