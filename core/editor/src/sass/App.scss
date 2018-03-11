@@ -1,10 +1,22 @@
 @import "colours";
 @import "buttons";
+@import "inputs";
 
 body {
 	margin: 0;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Karla', sans-serif;
     letter-spacing:1px;
+}
+
+.container{
+  max-width:768px;
+}
+
+hr{
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border: 0;
+  border-bottom: 1px solid #eee;
 }
 
 .align-right{
@@ -15,6 +27,66 @@ body {
 .align-left{
   display: flex;
   margin-right:auto;
+}
+
+.block-outline{
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius:4px;
+  padding: 30px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+  padding: 40px 30px 30px 30px;
+  position: relative;
+}
+
+.box-label{
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 10px;
+  color: #adadad;
+}
+
+.dropdown-menu{
+
+  & ul{
+    list-style: none;
+    padding-left: 0;
+    border: 1px solid #eee;
+    margin-top: 0px;
+
+    & li{
+      padding: 5px 30px;
+      cursor: pointer;
+
+      &:hover{
+        background-color:lighten($gray, 20%);
+        color:#fff;
+      }
+    }
+  }
+}
+
+#root{
+  margin-top: 100px;
+}
+
+.margin-bottom{
+  margin-bottom:15px;
+}
+
+.margin-right{
+  margin-right:15px;
+}
+
+.margin-left{
+  margin-left:15px;
+}
+
+.margin-top{
+  margin-top:15px;
 }
 
 .video{
