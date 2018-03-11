@@ -22,7 +22,8 @@ class Block extends Component {
 		})
 
 		this.state = {
-			block
+			block,
+			totalChanges: 0
 		}
 	}
 
@@ -31,7 +32,6 @@ class Block extends Component {
         let updatedBlock = this.state.block
         updatedBlock.changed = true
         updatedBlock.data[key].value = updateValue
-
 		this.setState({block: updatedBlock})
 
 		clearTimeout(this.timeout)
@@ -47,13 +47,18 @@ class Block extends Component {
 
 	render() {
 		return (
-		<div>
-			{
-				Object.keys(this.state.block.data).map((key) => {
-					return FieldFactory.create(key, this.state.block.data[key], this.updateBlock)
-				})
-			}
-			<button onClick={this.deleteThisBlock}>Delete</button>
+		<div className="row">
+			<div className="col">
+				<div className="block-outline">
+                    <span className="box-label">{this.state.block.name}</span>
+                    {
+                        Object.keys(this.state.block.data).map((key) => {
+                            return FieldFactory.create(key, this.state.block.data[key], this.updateBlock)
+                        })
+                    }
+                    <button onClick={this.deleteThisBlock}>Delete</button>
+				</div>
+			</div>
 		</div>)
 	}
 
