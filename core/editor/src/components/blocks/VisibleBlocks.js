@@ -33,15 +33,44 @@ class VisibleBlocks extends Component {
             )
         }
 		return (
-			<div>
+		    <div>
+                <div className="row">
+                    <div className="col">
+                        <div className="block-outline">
+                            <span className="box-label">Save page data</span>
+                            <button className="btn btn-outline btn-full margin-top" onClick={this.saveBlocks}>Save Blocks</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col">
+                        <div className="block-outline">
+                            <span className="box-label">Create a new block</span>
+                            <div className="row">
+                                <div className="col col-sm-6">
+                                    <label>
+                                        <span>
+                                            Block Type Selector:
+                                        </span>
+                                        <FieldSelector selectType={this.selectType}/>
+                                    </label>
+                                </div>
+                                <div className="col col-sm-6">
+                                    <button className="btn btn-primary align-right" onClick={this.createBlock} >Create block</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    {this.props.currentEditorBlock && <NewBlock block={this.props.currentEditorBlock}/>}
+                </div>
                 {this.props.list.map((block,index) => {
-        			return (<Block key={index} block={block} />	)
-        		})}
-                {this.props.currentEditorBlock && <NewBlock block={this.props.currentEditorBlock}/>}
-                <FieldSelector selectType={this.selectType}/>
-                <button onClick={this.createBlock} >Create block</button>
-                <button onClick={this.saveBlocks}>Save Blocks</button>
-			</div>
+                    return (<Block key={index} block={block} />	)
+                })}
+            </div>
 		)
 	}
 
