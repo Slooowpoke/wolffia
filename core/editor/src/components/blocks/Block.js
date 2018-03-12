@@ -56,7 +56,7 @@ class Block extends Component {
                             return FieldFactory.create(key, this.state.block.data[key], this.updateBlock)
                         })
                     }
-                    <button onClick={this.deleteThisBlock}>Delete</button>
+                    <button className="btn btn-primary btn-full" onClick={this.deleteThisBlock}>Delete Block</button>
 				</div>
 			</div>
 		</div>)
