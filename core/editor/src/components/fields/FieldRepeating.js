@@ -45,9 +45,9 @@ class FieldRepeating extends Field {
 	render() {
 		if(this.props.field.value.length === 0){
 			return (
-				<div>
+                <div className="col">
 					<p>No rows added yet, trying adding some.</p>
-                    <button onClick={this.addRow}>Add row</button>
+                    <button className="btn btn-primary align-right" onClick={this.addRow}>Add row</button>
                     <br /><br />
 				</div>
 
@@ -55,16 +55,16 @@ class FieldRepeating extends Field {
 		}else{
             return (
             	<div className="col" key={this.state.key}>
-                    <button onClick={this.addRow}>Add row</button>
+                    <button className="btn btn-primary align-right" onClick={this.addRow}>Add row</button>
                     <br /><br />
                 {
                     this.state.field.value.map((object, index) => {
                     	return (
-                    		<div>
-                                <button onClick={(e) => this.deleteRow(e, index)}>delete row</button>
+                    		<div className="repeater-row">
 								{Object.keys(object).map((key) => {
                                     return FieldFactory.create(key, object[key], this.update, index)
                                 })}
+                                <button className="btn btn-outline" onClick={(e) => this.deleteRow(e, index)}>Delete Row</button>
 							</div>
 						)
                     })
