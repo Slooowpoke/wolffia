@@ -3,6 +3,7 @@ import FieldText from './FieldText'
 import FieldRepeating from './FieldRepeating'
 import FieldHTML from './FieldHTML'
 import FieldImage from './FieldImage'
+import MediaPicker from '../media/MediaPicker'
 
 export function create(name, field, updateBlock, index){
     if (field.type === 'text') {
@@ -12,6 +13,6 @@ export function create(name, field, updateBlock, index){
     } else if (field.type === 'html') {
         return (<FieldHTML key={name} field={field} name={name} update={updateBlock} index={index}/>)
     } else if (field.type === 'image') {
-        return (<FieldImage key={name} field={field} name={name} update={updateBlock} index={index}/>)
+        return (<MediaPicker key={name} field={field} name={name} update={updateBlock} index={index}/>)
     }
 }
