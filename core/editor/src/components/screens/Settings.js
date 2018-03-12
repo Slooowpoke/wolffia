@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 
 import VisiblePages from '../pages/VisiblePages'
+import Navigation from '../Navigation'
 
 class Settings extends Component {
 
@@ -24,17 +25,8 @@ class Settings extends Component {
                         <h1>Settings</h1>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col">
-                        <button className="btn btn-outline btn-full" onClick={(e) => this.navigate(e, '/')}>Pages</button>
-                    </div>
-                    <div className="col">
-                        <button className="btn btn-outline btn-full" onClick={(e) => this.navigate(e, '/static')}>Static Content</button>
-                    </div>
-                    <div className="col">
-                        <button className="btn btn-outline btn-full" onClick={(e) => this.navigate(e, '/settings')}>Settings</button>
-                    </div>
-                </div>
+                <Navigation />
+
             </div>
         )
     }

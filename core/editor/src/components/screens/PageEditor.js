@@ -6,6 +6,7 @@ import * as Actions from '../../actions/pages'
 import {Link, Route} from 'react-router-dom'
 import VisibleBlocks from '../blocks/VisibleBlocks'
 import {push} from 'react-router-redux'
+import Navigation from '../Navigation'
 
 class PageEditor extends Component {
 	constructor(props) {
@@ -46,17 +47,8 @@ class PageEditor extends Component {
                         <h1>Editing page: {this.state.name}</h1>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col">
-                        <button className="btn btn-outline btn-full" onClick={(e) => this.navigate(e, '/')}>Pages</button>
-                    </div>
-                    <div className="col">
-                        <button className="btn btn-outline btn-full" onClick={(e) => this.navigate(e, '/static')}>Static Content</button>
-                    </div>
-                    <div className="col">
-                        <button className="btn btn-outline btn-full" onClick={(e) => this.navigate(e, '/settings')}>Settings</button>
-                    </div>
-                </div>
+                <Navigation />
+
                 <div className="row">
                     <div className="col">
                         <div className="block-outline">
