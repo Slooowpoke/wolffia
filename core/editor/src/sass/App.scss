@@ -89,6 +89,58 @@ hr{
   margin-top:15px;
 }
 
+.repeater-row{
+  border:1px dashed $gray;
+  border-radius:4px;
+  padding:20px;
+  margin-bottom:20px;
+}
+
+.react-tabs__tab-list{
+  list-style: none;
+  padding: 0;
+  display: flex;
+  margin-bottom:0px;
+
+  li{
+    display: block;
+    -webkit-box-shadow: 0px -2px 4px 0px rgba(0, 0, 0, 0.06);
+    box-shadow: 0px -2px 4px 0px rgba(0, 0, 0, 0.06);
+    padding: 10px 11px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: none;
+    border-radius: 4px;
+    margin-right: 5px;
+    cursor: pointer;
+
+    &.react-tabs__tab--selected{
+      background-color:lighten($gray, 20%);
+      color: #fff;
+    }
+  }
+}
+
+.react-tabs__tab-panel--selected{
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 0;
+}
+
+.editor-image-wrap{
+  margin: 20px auto;
+  text-align: center;
+  .img-wrapped{
+    margin: 20px auto;
+    display: block;
+  }
+}
+
+.img-wrapped{
+  border-radius: 4px;
+  display: block;
+}
+
 .video{
     width:50%;
 }
