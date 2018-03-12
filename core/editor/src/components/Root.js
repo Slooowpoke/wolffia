@@ -10,6 +10,8 @@ import Landing from './screens/Landing'
 import Dashboard from './screens/Dashboard'
 import PageEditor from './screens/PageEditor'
 import Settings from './screens/Settings'
+import StructureEditor from './screens/StructureEditor'
+import StaticEditor from './screens/StaticEditor'
 
 import {ConnectedRouter} from 'react-router-redux'
 import AuthenticatedComponent from './signin/AuthenticatedComponent'
@@ -22,6 +24,8 @@ const Root = ({store, history}) => (
                 <Route exact path="/" component={AuthenticatedComponent(Dashboard)}/>
                 <Route exact path="/pages/:id" component={AuthenticatedComponent(PageEditor)}/>
                 <Route exact path="/settings" component={AuthenticatedComponent(Settings)}/>
+                <Route exact path="/structure" component={AuthenticatedComponent(StructureEditor)}/>
+                <Route exact path="/static" component={AuthenticatedComponent(StaticEditor)}/>
 			</div>
 		</ConnectedRouter>
 	</Provider>
