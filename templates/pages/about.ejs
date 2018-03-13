@@ -2,4 +2,8 @@
 <%- include('../partials/navigation', {}); %>
 
 <h1><%= page.meta.title %></h1>
+
+<%- page.getBlock("heading") %>
+<%- page.blocks[0] %>
+
 <%- page.blocks %>
