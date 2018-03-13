@@ -8,7 +8,6 @@ export default class Page {
 
     getBlock(name){
         for(let block of this.blocks){
-            // console.log(block)
             if(block.name === name){
                 return block.html
             }
