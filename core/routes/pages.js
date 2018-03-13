@@ -11,7 +11,7 @@ export default {
         // TODO Refactor into Page class with Block class
         page.blocks = page.blocks.map((block) => {
             return ejs.renderFile('./templates' + block.template, block.data, {}, (err, html) => {
-                return html
+                return {...block, html}
             })
         })
 
