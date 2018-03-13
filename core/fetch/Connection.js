@@ -103,7 +103,7 @@ export default class Connection {
         }
     }
 
-    async savePageMeta(title, name, template, pageID){
+    async updatePageMeta(title, name, template, pageID){
         try {
             const [response] = await this.db.execute('UPDATE `pages` SET `title` = ?,`name` = ?, `template` = ? WHERE `pages`.`id` = ?', [title, name,template, pageID])
             return response

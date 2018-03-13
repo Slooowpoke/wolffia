@@ -28,8 +28,8 @@ export default class Retrieve {
         return await this.connection.fetchListOfBlocks()
     }
 
-    async savePageMeta(title, name,template, pageID){
-        let response = await this.connection.savePageMeta(title, name,template, pageID)
+    async updatePageMeta(title, name,template, pageID){
+        let response = await this.connection.updatePageMeta(title, name,template, pageID)
         return response
     }
 
@@ -45,7 +45,7 @@ export default class Retrieve {
         return response
     }
 
-    async addBlockToPage(block){
+    async createPageData(block){
         return await this.connection.insertPageData(block)
     }
 
