@@ -122,6 +122,7 @@ export default class Connection {
             return blocks.map((block) => {
                 // TODO Find a non-blocking method of parsing json
                 // Does kNEX have anything?
+
                 block.data = JSON.parse(block.data)
                 block.structure = JSON.parse(block.structure)
                 return block
@@ -142,8 +143,9 @@ export default class Connection {
     async fetchPage(pagename){
         try {
             const meta = await this.fetchPageMeta(pagename)
-            let blocks = await this.knex.select('data', 'blocks.template').from('page_data').leftJoin('blocks', 'blocks.id', 'page_data.block').where({'page_data.page': meta.id})
+            let blocks = await this.knex.select('page_data.name', 'data', 'blocks.template').from('page_data').leftJoin('blocks', 'blocks.id', 'page_data.block').where({'page_data.page': meta.id})
             blocks = blocks.map((block) => {
+
                 // TODO Find a non-blocking method of parsing json
                 // Does kNEX have anything?
                 block.data = JSON.parse(block.data)
