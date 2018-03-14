@@ -17,7 +17,7 @@ class StaticEditor extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col">
-                        <h1>Settings</h1>
+                        <h1>Static Data Editor</h1>
                     </div>
                 </div>
 
