@@ -6,8 +6,8 @@ export default {
         ctx.body = JSON.stringify(listOfPageMetas)
     },
 
-    getBlocksForPage: async(ctx, pageID) => {
-        let listOfBlocksForPage = await ctx.fetch.getBlocksForPage(pageID)
+    getBlocksForPage: async(ctx) => {
+        let listOfBlocksForPage = await ctx.fetch.getBlocksForPage(ctx.params.pageID)
         ctx.body = JSON.stringify(listOfBlocksForPage)
     },
 
@@ -16,8 +16,8 @@ export default {
         ctx.body = JSON.stringify(listOfBlocks)
     },
 
-    getBlockStructure: async(ctx, id) => {
-        let blockStructure = await ctx.fetch.getBlockStructure(id)
+    getBlockStructure: async(ctx) => {
+        let blockStructure = await ctx.fetch.getBlockStructure(ctx.params.id)
         ctx.body = JSON.stringify(blockStructure)
     },
 
@@ -27,10 +27,10 @@ export default {
         ctx.body = await JSON.stringify(ctx.fetch.updatePageMeta(request.title, request.name,request.template, request.id))
     },
 
-    updatePageData: async(ctx, id) => {
+    updatePageData: async(ctx) => {
         ctx.accepts('application/json')
         let request = ctx.request.body
-        ctx.body = JSON.stringify(await ctx.fetch.updatePageData(request, id))
+        ctx.body = JSON.stringify(await ctx.fetch.updatePageData(request, ctx.params.id))
     },
 
     createPage: async(ctx) => {
@@ -47,9 +47,9 @@ export default {
         ctx.body = JSON.stringify(createPageDataResponse)
     },
 
-    deletePageData: async(ctx, pageID, blockID) => {
+    deletePageData: async(ctx) => {
         ctx.accepts('application/json')
-        let dropDataResponse = await ctx.fetch.dropPageData(blockID)
+        let dropDataResponse = await ctx.fetch.dropPageData(ctx.params.blockID)
         ctx.body = JSON.stringify(dropDataResponse)
     },
 
