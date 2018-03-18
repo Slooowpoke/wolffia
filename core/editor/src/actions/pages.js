@@ -12,8 +12,14 @@ export const SAVE_META = 'SAVE_PAGE_META',SAVE_META_REQUEST = 'SAVE_META_REQUEST
 export const CREATE_PAGE_REQUEST = 'CREATE_PAGE_REQUEST', CREATE_PAGE_SUCCESS = 'CREATE_PAGE_SUCCESS', CREATE_PAGE_FAILURE = 'CREATE_PAGE_FAILURE'
 export const DELETE_PAGE_REQUEST = 'DELETE_PAGE_REQUEST', DELETE_PAGE_SUCCESS ='DELETE_PAGE_SUCCESS', DELETE_PAGE_FAILURE = 'DELETE_PAGE_FAILURE'
 
+
+export const FETCH_PAGE_BY_ID_REQUEST = 'FETCH_PAGE_BY_ID_REQUEST',
+    FETCH_PAGE_BY_ID_SUCCESS = 'FETCH_PAGE_BY_SUCCESS',
+    FETCH_PAGE_BY_ID_FAILURE = 'FETCH_PAGE_BY_FAILURE'
+
+
 export function savePageMeta(meta){
-    const request = axios.post('http://localhost:3001/api/pages/' + meta.id + '/meta/save', meta)
+    const request = axios.post('http://localhost:3001/api/pages/meta/save', meta)
 
     return (dispatch) => {
         dispatch(savePageMetaRequest())
@@ -198,4 +204,31 @@ export function loadSinglePage(index){
         type: VIEW_PAGE,
         index
     }
+}
+
+export function getPageByID(id) {
+    const request = axios.get('http://localhost:3001/api/pages/' + id)
+
+    return (dispatch) => {
+        dispatch(fetchPageByIDRequest())
+
+        request.then(({data}) => {
+            dispatch(fetchPageByIDSuccess(data))
+
+        }).catch(({error}) => {
+            dispatch(fetchPageByIDFailure(error))
+        })
+    }
+}
+
+export function fetchPageByIDRequest() {
+    return {type: FETCH_PAGE_BY_ID_REQUEST}
+}
+
+export function fetchPageByIDSuccess(data) {
+    return {type: FETCH_PAGE_BY_ID_SUCCESS, currentEditorPage: data}
+}
+
+export function fetchPageByIDFailure(error) {
+    return {type: FETCH_PAGE_BY_ID_FAILURE, error}
 }
