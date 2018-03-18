@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import {Link, Route} from 'react-router-dom'
-import Blocks from '../blocks/Blocks'
+import VisibleBlocksContainer from '../containers/VisibleBlocksContainer'
 import Navigation from '../Navigation'
 
 class PageEditor extends Component {
@@ -59,7 +59,7 @@ class PageEditor extends Component {
                     </div>
                 </div>
 
-                <Blocks pageID= {this.props.id} blocks={this.props.blocks}/>
+                <VisibleBlocksContainer pageID= {this.props.id} />
 
 			</div>
 		)
