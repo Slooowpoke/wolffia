@@ -6,6 +6,11 @@ export default {
         ctx.body = JSON.stringify(listOfPageMetas)
     },
 
+    getPageByID: async(ctx) => {
+        let page = await ctx.fetch.getPageByID(ctx.params.pageID)
+        ctx.body = JSON.stringify(page)
+    },
+
     getBlocksForPage: async(ctx) => {
         let listOfBlocksForPage = await ctx.fetch.getBlocksForPage(ctx.params.pageID)
         ctx.body = JSON.stringify(listOfBlocksForPage)
