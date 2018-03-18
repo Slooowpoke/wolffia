@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 const PageListItem = ({page, index, edit}) =>{
     return (
-        <div key={index} className="row">
+        <div className="row">
             <div className="col col-sm-6">
                 <p>{page.name} - {page.title}</p>
             </div>
@@ -22,7 +22,7 @@ class VisiblePages extends Component {
 	render() {
         if(!this.props.pages){
             return (
-                <div>
+                <div className="block-outline">
                     <div className="row">
                         <div className="col">
                             <p>No pages created yet.</p>
@@ -32,17 +32,15 @@ class VisiblePages extends Component {
             )
         }
 		return (
-			<div>
+			<div className="block-outline">
                 {this.props.pages.map((page,index) => {
                     return (
-                      <PageListItem page={page} index={index} edit={this.props.edit} />
+                      <PageListItem key={index} page={page} index={index} edit={this.props.edit} />
                     )
                 })}
 			</div>
 		)
 	}
 }
-
-
 
 export default VisiblePages
