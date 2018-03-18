@@ -6,8 +6,8 @@ import {Provider} from 'react-redux'
 
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 
-import LandingContainer from './containers/LandingContainer'
 import PagesContainer from './containers/PagesContainer'
+import PageEditorContainer from './containers/PageEditorContainer'
 import Dashboard from './screens/Dashboard'
 import PageEditor from './screens/PageEditor'
 import Settings from './screens/Settings'
@@ -23,7 +23,7 @@ const Root = ({store, history}) => (
 			<div>
 				<Route exact path="/" component={PagesContainer}/>
 
-                <Route exact path="/pages/:id" component={AuthenticatedComponent(PageEditor)}/>
+                <Route exact path="/pages/:id" component={AuthenticatedComponent(PageEditorContainer)}/>
                 <Route exact path="/settings" component={AuthenticatedComponent(Settings)}/>
                 <Route exact path="/structure" component={AuthenticatedComponent(StructureEditor)}/>
                 <Route exact path="/static" component={AuthenticatedComponent(StaticEditor)}/>
