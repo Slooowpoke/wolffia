@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { createActionTypes, requestCreator } from './utils';
 
 export const
     LOAD_BLOCKS = 'LOAD_BLOCKS',
@@ -12,11 +13,6 @@ export const
     UPDATE_REQUEST = 'UPDATE_REQUEST',
     UPDATE_FAILURE = 'UPDATE_FAILURE',
     UPDATE_SUCCESS = 'UPDATE_SUCCESS',
-    FETCH_BLOCKS = 'FETCH_BLOCKS',
-    FETCH_BLOCKS_REQUEST = 'FETCH_BLOCKS_REQUEST',
-    FETCH_BLOCKS_FAILURE = 'FETCH_BLOCKS_FAILURE',
-    FETCH_BLOCKS_SUCCESS = 'FETCH_BLOCKS_SUCCESS',
-    CREATE_BLOCK_REQUEST = 'CREATE_BLOCK_REQUEST',
     CREATE_BLOCK_FAILURE = 'CREATE_BLOCK_FAILURE',
     CREATE_BLOCK_SUCCESS = 'CREATE_BLOCK_SUCCESS',
 
@@ -33,22 +29,112 @@ export const
 
     SAVE_NEW_BLOCK_REQUEST = 'SAVE_NEW_BLOCK_REQUEST',
     SAVE_NEW_BLOCK_SUCCESS = 'SAVE_NEW_BLOCK_SUCCESS',
-    SAVE_NEW_BLOCK_FAILURE = 'SAVE_NEW_BLOCK_FAILURE'
+    SAVE_NEW_BLOCK_FAILURE = 'SAVE_NEW_BLOCK_FAILURE';
 
-function saveNewBlockSuccess(details) {
-    return dispatch => {
-        dispatch({type: SAVE_NEW_BLOCK_SUCCESS, details})
+
+
+export function loadBlocks(pageID){
+    return requestCreator(() => loadBlocksRequest(pageID), createActionTypes('LOAD_BLOCKS'))
+}
+async function loadBlocksRequest(id) {
+    const response = await axios.get('http://localhost:3001/api/pages/' + id + '/blocks')
+    return response.data
+}
+
+// export function fetchBlockTypesList(){
+//     return requestCreator(() => loadBlockTypesList, createActionTypes('BLOCK_LIST'))
+// }
+// async function loadBlockTypesList() {
+//     const response = await axios.get('http://localhost:3001/api/blocks')
+//     return response.data
+// }
+
+export function getBlockEditorStructure(blockID, pageID){
+    return requestCreator(() => loadBlockEditorStructure(blockID, pageID), createActionTypes('LOAD_BLOCK_EDITOR_STRUCTURE'))
+}
+async function loadBlockEditorStructure(id, pageID) {
+    const response = await axios.get('http://localhost:3001/api/blocks/' + id)
+    if(response.data === undefined){
+        throw 'Response was empty.'
+    }
+    response.data.page = pageID
+    response.data.block = id
+    return response.data
+}
+
+export function updateBlock(block) {
+    let pageID, blockID
+    if(block.id != undefined){
+        blockID = block.id
+
+        return {
+            type: UPDATE_BLOCK,
+            blockID,
+            block
+        }
+    }else{
+        return async (dispatch) => {
+            dispatch(requestCreator(() => saveNewBlockRequest(block), createActionTypes('SAVE_NEW_BLOCK'))),
+            dispatch({type: CLEAR_CURRENT_EDITOR})
+        }
+
+        // pageID = block.page
+        // return async (dispatch) => {
+        //     let url = 'http://localhost:3001/api/pages/' + pageID + '/blocks/create'
+        //     console.log(block.data)
+        //     // block.data = JSON.stringify(block.data)
+        //     dispatch({type: SAVE_NEW_BLOCK_REQUEST, url})
+        //     try {
+        //         console.log(block.data)
+        //         const response = await axios.post(url,block)
+        //         let id = response.data.response[0]
+        //         console.log('block id')
+        //         console.log(id)
+        //
+        //         dispatch({type: CLEAR_CURRENT_EDITOR})
+        //         dispatch({
+        //             type: UPDATE_BLOCK,
+        //             pageID,
+        //             createID: id,
+        //             block
+        //         })
+        //     } catch (e) {
+        //         console.log(e)
+        //         dispatch(saveNewBlockFailure(e));
+        //     }
+        // }
     }
 }
+
+export function uBlock(block){
+    if(block.id !== undefined){
+        return {
+            type: UPDATE_BLOCK,
+            block
+        }
+    }else{
+        return async (dispatch) => {
+            dispatch(requestCreator(() => saveNewBlockRequest(block), createActionTypes('CREATE_BLOCK')))
+            dispatch({type: CLEAR_CURRENT_EDITOR})
+        }
+    }
+}
+async function saveNewBlockRequest(block) {
+    const response = await axios.post('http://localhost:3001/api/pages/' + block.page + '/blocks/create',block)
+    if(response.data === undefined){
+        throw 'Response was empty.'
+    }
+    const id = response.data.response[0]
+    return {...block, id}
+}
+
+
 function saveNewBlockFailure(error) {
     return {type: SAVE_NEW_BLOCK_FAILURE, error}
 }
 
-
 export function clearCurrentEditor(){
-	return{
-		type:CLEAR_CURRENT_EDITOR
-	}
+	return{ type:CLEAR_CURRENT_EDITOR }
 }
 
 export function deleteBlock(pageID, blockID) {
@@ -82,132 +168,6 @@ export function deleteBlockFailure(error) {
 	return {type: DELETE_BLOCK_FAILURE, error}
 }
 
-export function createBlockEditor(id, pageID){
-    const request = axios.get('http://localhost:3001/api/blocks/' + id)
-
-    return (dispatch) => {
-        dispatch(fetchBlockDetails())
-
-        request.then(({data}) => {
-            if (data != undefined) {
-                data.page = pageID
-                data.block = id
-                dispatch(createBlockEditorSuccess(data))
-            } else {
-                throw('No blocks available')
-            }
-        }).catch(({error}) => {
-            dispatch(createBlockEditorFailure(error))
-        })
-    }
-}
-
-export function fetchBlockDetails() {
-	return {type: FETCH_BLOCK_DETAILS}
-}
-
-export function createBlockEditorSuccess(data) {
-	return {type: CREATE_BLOCK_EDITOR, currentEditorBlock: data}
-}
-
-export function createBlockEditorFailure(error) {
-	return {type: CREATE_BLOCK_FAILURE, error}
-}
-
-export function createBlock(block){
-    return {
-        type: CREATE_BLOCK,
-        block
-    }
-    // const request = axios.post('http://localhost:3001/api/blocks/create', block)
-}
-
-export function createBlockRequest() {
-	return {type: CREATE_BLOCK_REQUEST}
-}
-
-export function createBlockSuccess(data) {
-	return {type: CREATE_BLOCK, block: data}
-}
-
-export function createBlockFailure(error) {
-	return {type: CREATE_BLOCK_FAILURE, error}
-}
-
-export function loadBlocks(pageID) {
-	const request = axios.get('http://localhost:3001/api/pages/' + pageID + '/blocks')
-
-	return (dispatch) => {
-		dispatch(loadBlocksRequest())
-
-		request.then(({data}) => {
-			if (data.length > 0) {
-				dispatch(loadBlocksSuccess(data))
-			} else {
-				throw('No blocks available')
-			}
-
-		}).catch(({error}) => {
-			dispatch(loadBlocksFailure(error))
-		})
-	}
-}
-
-export function loadBlocksRequest() {
-	return {type: LOAD_BLOCKS_REQUEST}
-}
-
-export function loadBlocksSuccess(data) {
-	return {type: LOAD_BLOCKS_SUCCESS, list: data}
-}
-
-export function loadBlocksFailure(error) {
-	return {type: LOAD_BLOCKS_FAILURE, error}
-}
-
-export function updateBlock(block) {
-    let pageID, blockID
-    if(block.id != undefined){
-        pageID = block.page
-        blockID = block.id
-
-        return {
-            type: UPDATE_BLOCK,
-            pageID,
-            blockID,
-            block
-        }
-    }else{
-        pageID = block.page
-        return async (dispatch) => {
-            let url = 'http://localhost:3001/api/pages/' + pageID + '/blocks/create'
-            console.log(block.data)
-            // block.data = JSON.stringify(block.data)
-            dispatch({type: SAVE_NEW_BLOCK_REQUEST, url})
-            try {
-                console.log(block.data)
-                const response = await axios.post(url,block)
-                let id = response.data.response[0]
-                console.log('block id')
-                console.log(id)
-
-                dispatch({type: CLEAR_CURRENT_EDITOR})
-                dispatch({
-                    type: UPDATE_BLOCK,
-                    pageID,
-                    createID: id,
-                    block
-                })
-            } catch (e) {
-                console.log(e)
-                dispatch(saveNewBlockFailure(e));
-            }
-        }
-
-    }
-
-}
-
 export function saveBlocks(blocks, pageID) {
     console.log(blocks)
 	const request = axios.post('http://localhost:3001/api/page/' + pageID + '/blocks/', blocks)
@@ -223,7 +183,7 @@ export function saveBlocks(blocks, pageID) {
 			}
 
 		}).catch(({error}) => {
-			dispatch(fetchBlocksListFailure(error))
+			dispatch(saveBlocksFailure(error))
 		})
 	}
 }
@@ -238,38 +198,6 @@ export function saveBlocksSuccess(data) {
 
 export function saveBlocksFailure(error) {
 	return {type: SAVE_BLOCKS_FAILURE, error}
-}
-
-
-export function fetchBlocksList() {
-	const request = axios.get('http://localhost:3001/api/blocks')
-
-	return (dispatch) => {
-		dispatch(fetchBlocksListRequest())
-
-		request.then(({data}) => {
-			if (data.length > 0) {
-				dispatch(fetchBlocksListSuccess(data))
-			} else {
-				throw('No blocks available')
-			}
-
-		}).catch(({error}) => {
-			dispatch(fetchBlocksListFailure(error))
-		})
-	}
-}
-
-export function fetchBlocksListRequest() {
-	return {type: FETCH_BLOCKS_REQUEST}
-}
-
-export function fetchBlocksListSuccess(data) {
-	return {type: FETCH_BLOCKS_SUCCESS, list: data}
-}
-
-export function fetchBlocksListFailure(error) {
-	return {type: FETCH_BLOCKS_FAILURE, error}
 }
 
 // export function updateBlock(pageID, blockID, block) {
@@ -302,3 +230,4 @@ export function updateBlockSuccess(data) {
 export function updateBlockFailure(error) {
 	return {type: UPDATE_FAILURE, error}
 }
+

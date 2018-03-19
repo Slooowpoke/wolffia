@@ -2,7 +2,7 @@ import {
     CREATE_BLOCK,
     UPDATE_BLOCK,
     DELETE_BLOCK_SUCCESS,
-    CLEAR_CURRENT_EDITOR
+    CLEAR_CURRENT_EDITOR, SAVE_NEW_BLOCK_SUCCESS
 } from '../actions/blocks'
 
 const initialState = {
@@ -26,27 +26,24 @@ export function blocks(state = initialState, action) {
                     ...state.list, action.block
                 ]
             }
+        case SAVE_NEW_BLOCK_SUCCESS:
+            return {
+                ...state,
+                list:[
+                    ...state.list, {
+                        ...action.response,
+                    }
+                ]
+            }
         case UPDATE_BLOCK:
-            if(action.blockID === undefined){
-                return {
-                    ...state,
-                    list:[
-                        ...state.list, {
-                            ...action.block,
-                            id: action.createID
-                        }
-                    ]
-                }
-            }else{
-                return {
-                    ...state,
-                    list: state.list.map(block => {
-                        if(block.id == action.blockID){
-                            block = action.block
-                        }
-                        return block
-                    })
-                }
+            return {
+                ...state,
+                list: state.list.map(block => {
+                    if(block.id === action.block.id){
+                        block = action.block
+                    }
+                    return block
+                })
             }
         case DELETE_BLOCK_SUCCESS:
 		    return {
