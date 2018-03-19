@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 
-import * as Actions from '../../actions/pages'
 import VisiblePages from '../pages/VisiblePages'
 import Navigation from '../Navigation'
 import Header from '../Header'

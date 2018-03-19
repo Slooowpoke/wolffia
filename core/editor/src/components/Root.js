@@ -8,11 +8,10 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 import PagesContainer from './containers/PagesContainer'
 import PageEditorContainer from './containers/PageEditorContainer'
-import Dashboard from './screens/Dashboard'
-import PageEditor from './screens/PageEditor'
-import Settings from './screens/Settings'
-import StructureEditor from './screens/StructureEditor'
-import StaticEditor from './screens/StaticEditor'
+import StructuresListContainer from './structure/StructuresListContainer'
+import SettingsContainer from './settings/SettingsContainer'
+import StaticListContainer from './static_blocks/StaticListContainer'
+
 
 import {ConnectedRouter} from 'react-router-redux'
 import AuthenticatedComponent from './signin/AuthenticatedComponent'
@@ -24,9 +23,9 @@ const Root = ({store, history}) => (
 				<Route exact path="/" component={PagesContainer}/>
 
                 <Route exact path="/pages/:id" component={AuthenticatedComponent(PageEditorContainer)}/>
-                <Route exact path="/settings" component={AuthenticatedComponent(Settings)}/>
-                <Route exact path="/structure" component={AuthenticatedComponent(StructureEditor)}/>
-                <Route exact path="/static" component={AuthenticatedComponent(StaticEditor)}/>
+                <Route exact path="/settings" component={AuthenticatedComponent(SettingsContainer)}/>
+                <Route exact path="/structure" component={AuthenticatedComponent(StructuresListContainer)}/>
+                <Route exact path="/static" component={AuthenticatedComponent(StaticListContainer)}/>
 			</div>
 		</ConnectedRouter>
 	</Provider>

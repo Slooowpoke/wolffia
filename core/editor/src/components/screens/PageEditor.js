@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
-import {Link, Route} from 'react-router-dom'
 import VisibleBlocksContainer from '../containers/VisibleBlocksContainer'
+import Header from '../Header'
 import Navigation from '../Navigation'
 
 class PageEditor extends Component {
@@ -10,15 +10,11 @@ class PageEditor extends Component {
 	}
 
 	render() {
+	    let title = 'Editing page:' + this.props.name;
 		return (
             <div className="container">
-                <div className="row">
-                    <div className="col">
-                        <h1>Editing page: {this.props.name}</h1>
-                    </div>
-                </div>
+                <Header title={title}/>
                 <Navigation />
-
                 <div className="row">
                     <div className="col">
                         <div className="block-outline">
@@ -60,7 +56,6 @@ class PageEditor extends Component {
                 </div>
 
                 <VisibleBlocksContainer pageID= {this.props.id} />
-
 			</div>
 		)
 	}

@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 
-import ReactJson from 'react-json-view'
-
 import Navigation from '../Navigation'
 import Header from '../Header'
 
-const StructureListItem = ({block, index}) =>{
+const StaticListItem = ({block}) =>{
     return (
         <div className="row">
             <div className="col">
@@ -24,7 +22,7 @@ const StructureListItem = ({block, index}) =>{
     )
 }
 
-class StructuresList extends Component {
+class StaticList extends Component {
 
     constructor(props) {
         super(props)
@@ -36,29 +34,21 @@ class StructuresList extends Component {
                 <Header title="Block Structures" />
                 <Navigation />
 
-                {/*<div className="row">*/}
-                    {/*<div className="col">*/}
-                        {/*<div className="block-outline">*/}
-                            {/*<ReactJson className="margin-top" src={this.state.json} />*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-                {/*</div>*/}
-
                 {this.listStructures()}
             </div>
         )
     }
 
     listStructures(){
-        if(this.props.listOfStructures === undefined){
+        if(this.props.listOfBlocks === undefined){
             return (
-                <p>No block structures created yet.</p>
+                <p>WILL STATIC CONTENT EVER EXIST LIKE THIS? IS IT NOT REALLY BAD?</p>
             )
         }
         return(
-            this.props.listOfStructures.map((block,index) => {
+            this.props.listOfBlocks.map((block,index) => {
                 return (
-                    <StructureListItem key={index} block={block} index={index}  />
+                    <StaticListItem key={index} block={block} index={index}  />
                 )
             })
         )
@@ -66,4 +56,4 @@ class StructuresList extends Component {
 
 }
 
-export default (StructuresList)
+export default (StaticList)
