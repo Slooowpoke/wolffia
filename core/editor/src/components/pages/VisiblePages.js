@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-const PageListItem = ({page, index, edit}) =>{
+const PageListItem = ({page, index, edit}) => {
     return (
         <div className="row">
             <div className="col col-sm-6">
@@ -15,12 +15,12 @@ const PageListItem = ({page, index, edit}) =>{
 
 class VisiblePages extends Component {
 
-	constructor(props) {
-		super(props)
-	}
+    constructor(props) {
+        super(props)
+    }
 
-	render() {
-        if(!this.props.pages){
+    render() {
+        if (!this.props.pages) {
             return (
                 <div className="block-outline">
                     <div className="row">
@@ -31,16 +31,20 @@ class VisiblePages extends Component {
                 </div>
             )
         }
-		return (
-			<div className="block-outline">
-                {this.props.pages.map((page,index) => {
-                    return (
-                      <PageListItem key={index} page={page} index={index} edit={this.props.edit} />
-                    )
-                })}
-			</div>
-		)
-	}
+        return (
+            <div className="row">
+                <div className="col">
+                    <div className="block-outline">
+                        {this.props.pages.map((page, index) => {
+                            return (
+                                <PageListItem key={index} page={page} index={index} edit={this.props.edit}/>
+                            )
+                        })}
+                    </div>
+                </div>
+            </div>
+        )
+    }
 }
 
 export default VisiblePages

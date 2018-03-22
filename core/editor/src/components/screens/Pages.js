@@ -12,9 +12,8 @@ class Pages extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container-fluid">
                 <Header title="Pages"/>
-                <Navigation />
                 <VisiblePages pages={this.props.pages} edit={this.props.editPage}/>
             </div>
         )

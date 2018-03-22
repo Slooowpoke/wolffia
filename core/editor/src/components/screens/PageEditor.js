@@ -12,9 +12,8 @@ class PageEditor extends Component {
 	render() {
 	    let title = 'Editing page:' + this.props.name;
 		return (
-            <div className="container">
+            <div className="container-fluid">
                 <Header title={title}/>
-                <Navigation />
                 <div className="row">
                     <div className="col">
                         <div className="block-outline">

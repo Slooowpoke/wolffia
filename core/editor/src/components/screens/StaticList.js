@@ -30,9 +30,8 @@ class StaticList extends Component {
 
     render() {
         return(
-            <div className="container">
+            <div className="container-fluid">
                 <Header title="Block Structures" />
-                <Navigation />
 
                 {this.listStructures()}
             </div>

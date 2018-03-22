@@ -11,9 +11,8 @@ class Settings extends Component {
 
     render() {
         return(
-            <div className="container">
+            <div className="container-fluid">
                 <Header title="Settings"/>
-                <Navigation />
             </div>
         )
     }
