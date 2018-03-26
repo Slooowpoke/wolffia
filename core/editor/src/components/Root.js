@@ -7,7 +7,6 @@ import PagesContainer from './containers/PagesContainer'
 import PageEditorContainer from './containers/PageEditorContainer'
 import StructuresListContainer from './structure/StructuresListContainer'
 import SettingsContainer from './settings/SettingsContainer'
-import StaticListContainer from './static_blocks/StaticListContainer'
 
 import {ConnectedRouter} from 'react-router-redux'
 import AuthenticatedComponent from './signin/AuthenticatedComponent'
