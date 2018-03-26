@@ -16,12 +16,13 @@ class VisibleBlocksContainer extends Component {
             selectedType:{name:'heading', id:1},
         }
         dispatch(Actions.loadBlocks(props.pageID))
-        dispatch(Actions.fetchBlocksList())
+
     }
 
     create = () =>{
         const { dispatch } = this.props
-        dispatch(Actions.createBlockEditor(this.state.selectedType.id, this.props.pageID))
+        let biggestDisplay = this.props.list[this.props.list.length-1].display;
+        dispatch(Actions.getBlockEditorStructure(this.state.selectedType.id, this.props.pageID, biggestDisplay))
     }
 
     render() {

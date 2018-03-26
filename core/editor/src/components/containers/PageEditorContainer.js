@@ -15,11 +15,24 @@ class PageEditorContainer extends Component {
         this.boundActionCreators = bindActionCreators(Actions, dispatch)
 
         dispatch(Actions.getPageByID(props.match.params.id))
+        this.state = {}
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        if(this.state === undefined || !this.state.initialised){
+            this.setState({
+                title: nextProps.meta.title,
+                name: nextProps.meta.name,
+                template: nextProps.meta.template,
+                initialised: true
+            })
+        }
+        return true;
     }
 
     render() {
         let props = this.props
-        if(props.meta == undefined){
+        if(props.meta == undefined || !this.state.initialised){
             return (
                 <p>Page loading...</p>
             )
@@ -31,9 +44,9 @@ class PageEditorContainer extends Component {
                 onChangeTitle={this.onChangeTitle}
                 onChangeName={this.onChangeName}
                 onChangeTemplate={this.onChangeTemplate}
-                title={this.props.meta.title}
-                name={this.props.meta.name}
-                template={this.props.meta.template}
+                title={this.state.title}
+                name={this.state.name}
+                template={this.state.template}
                 id={this.props.meta.id}
             />
         )
@@ -65,8 +78,7 @@ class PageEditorContainer extends Component {
 
     save = () => {
         const { dispatch } = this.props
-        let meta = {title: this.state.title, name: this.state.name,template: this.state.template, id: this.state.id}
-
+        let meta = {title: this.state.title, name: this.state.name,template: this.state.template, id: this.props.meta.id}
         dispatch(Actions.updatePage(meta))
     }
 
