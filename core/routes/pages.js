@@ -2,7 +2,18 @@ const ejs = require('ejs')
 
 export default {
     home: async(ctx) => {
-        ctx.state.page = await ctx.fetch.getPage('home')
+        let page = await ctx.fetch.getPage('home')
+
+        // TODO Refactor into Page class with Block class
+        page.blocks = page.blocks.map((block) => {
+            return ejs.renderFile('./templates' + block.template, block.data, {}, (err, html) => {
+
+                return {...block, html}
+            })
+        })
+
+        ctx.state.page = page
+
         return await ctx.render(ctx.state.page.meta.template, ctx.state.page)
     },
     about: async (ctx) => {
@@ -11,6 +22,7 @@ export default {
         // TODO Refactor into Page class with Block class
         page.blocks = page.blocks.map((block) => {
             return ejs.renderFile('./templates' + block.template, block.data, {}, (err, html) => {
+
                 return {...block, html}
             })
         })

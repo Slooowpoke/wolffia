@@ -37,6 +37,7 @@ router.post('/api/pages/create', API.createPage)
 
 router.get('/api/pages', API.getListOfPagesMetas)
 router.get('/api/blocks', API.getListOfBlocks)
+router.get('/api/pages/:pageID/', API.getPageByID)
 router.get('/api/pages/:pageID/blocks', API.getBlocksForPage)
 router.get('/api/blocks/:id', API.getBlockStructure)
 

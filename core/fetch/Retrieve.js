@@ -15,6 +15,11 @@ export default class Retrieve {
         return new Page(meta, blocks)
     }
 
+    async getPageByID(id){
+        let {blocks, meta} = await this.connection.fetchPageByID(id)
+        return new Page(meta, blocks)
+    }
+
     async getAllPageMetas(){
         return await this.connection.fetchPageMetas()
     }

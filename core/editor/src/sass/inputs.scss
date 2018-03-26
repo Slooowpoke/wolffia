@@ -5,6 +5,36 @@ input[type="text"]{
   width:100%;
 }
 
+input[type="text"].outline{
+  caret-color: rgba(0, 0, 0, 0.3);
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.1);
+
+
+  &:focus{
+    outline: none;
+  }
+
+  &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgba(0, 0, 0, 0.05);
+    opacity: 1; /* Firefox */
+    font-weight: 700;
+  }
+
+  &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: rgba(0, 0, 0, 0.05);
+    font-weight: 700;
+  }
+
+  &::-ms-input-placeholder { /* Microsoft Edge */
+    color: rgba(0, 0, 0, 0.05);
+    font-weight: 700;
+  }
+
+}
+
 textarea{
   padding: 10px 11px;
   border: 1px solid rgba(0, 0, 0, 0.1);

@@ -1,13 +1,3 @@
-import {
-    LOAD_BLOCKS_REQUEST,
-    LOAD_BLOCKS_FAILURE,
-    LOAD_BLOCKS_SUCCESS,
-    CREATE_BLOCK,
-    UPDATE_BLOCK,
-    DELETE_BLOCK_SUCCESS,
-    CREATE_BLOCK_EDITOR,
-    CLEAR_CURRENT_EDITOR
-} from '../actions/blocks'
 
 const initialState = {
 	list: [],
@@ -18,65 +8,59 @@ const initialState = {
 
 export function blocks(state = initialState, action) {
 	switch (action.type) {
-        case CREATE_BLOCK_EDITOR:
-            return Object.assign({}, state, {
-                currentEditorBlock: action.currentEditorBlock
-            })
-		case CREATE_BLOCK:
-			return Object.assign({}, state, {
-				list: [
-					...state.list, action.block
-				]
-			})
-        case UPDATE_BLOCK:
-            if(action.blockID == undefined){
-
-                return {
-                    ...state,
-                    list:[
-                        ...state.list, {
-                            ...action.block,
-                            id: action.createID
-                        }
-                    ]
-                }
-            }else{
-                return Object.assign({}, state, {
-                    list: state.list.map(block => {
-                        if(block.id == action.blockID){
-                            block = action.block
-                        }
-                        return block
-                    })
-                })
-            }
-		case DELETE_BLOCK_SUCCESS:
-			return Object.assign({}, state, {
-				list: state.list.filter(block => block.id != action.remove)
-			})
-		case LOAD_BLOCKS_REQUEST:
-			return Object.assign({}, state, {
-				isFetching: true,
-				didInvalidate: false
-			})
-		case LOAD_BLOCKS_SUCCESS:
+        case 'LOAD_BLOCK_EDITOR_STRUCTURE_SUCCESS':
             return {
                 ...state,
-                isFetching: false,
-				didInvalidate: false,
+                currentEditorBlock: action.response
+            }
+        case 'SAVE_NEW_BLOCK_SUCCESS':
+            console.log(action)
+            return {
+                ...state,
+                list:[
+                    ...state.list, {
+                        ...action.response,
+                    }
+                ]
+            }
+        case 'UPDATE_BLOCK':
+            return {
+                ...state,
+                list: state.list.map(block => {
+                    if(block.id === action.block.id){
+                        block = action.block
+                    }
+                    return block
+                })
+            }
+        case 'DELETE_BLOCK_SUCCESS':
+		    return {
+                ...state,
+               list: state.list.filter(block => block.id !== action.response)
+            }
+		case 'LOAD_BLOCKS_SUCCESS':
+            let sortedResponse = action.response.sort(function(a, b) {
+                let keyA = a.display,
+                    keyB = b.display;
+                if (keyA < keyB) return -1;
+                if (keyA > keyB) return 1;
+                return 0;
+            });
+            return {
+                ...state,
 				list: [
-					...action.list
+					...sortedResponse
 				],
 				lastUpdated: action.receivedAt
             }
-		case LOAD_BLOCKS_FAILURE:
-			return Object.assign({}, state, {
-				isFetching: false,
-				didInvalidate: false,
+        case 'LOAD_BLOCKS_FAILURE':
+		    return {
+                ...state,
+                isFetching: false,
                 error: action.error,
-				lastUpdated: action.receivedAt
-			})
-        case CLEAR_CURRENT_EDITOR:
+                lastUpdated: action.receivedAt
+            }
+        case 'CLEAR_CURRENT_EDITOR':
             return {
                 ...state,
                 currentEditorBlock:null
@@ -93,4 +77,12 @@ function arrayIncludesByID(array, id){
         }
     }
     return false
+}
+
+function orderByDisplay(a, b){
+    let keyA = new Date(a.display),
+        keyB = new Date(b.display);
+    if(keyA < keyB) return -1;
+    if(keyA > keyB) return 1;
+    return 0;
 }

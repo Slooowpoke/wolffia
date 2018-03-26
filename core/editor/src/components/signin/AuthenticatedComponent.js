@@ -10,7 +10,7 @@ import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 export default(ChildComponent) => {
 	class AuthenticatedComponent extends Component {
 		render() {
-			if (this.props.app.authentication.token) {
+			if (!this.props.app.authentication.token) {
                 return <ChildComponent {...this.props}/>
 			} else {
 				return <Redirect to={{
