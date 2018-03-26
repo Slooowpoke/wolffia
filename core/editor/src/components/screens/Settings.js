@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import Navigation from '../Navigation'
+
 import Header from '../Header'
 
 class Settings extends Component {
