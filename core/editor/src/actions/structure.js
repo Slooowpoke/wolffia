@@ -1,31 +1,12 @@
 import axios from 'axios/index'
-import {deletePageFailure, deletePageSuccess} from './pages'
+import { createActionTypes, requestCreator } from './utils';
 
-export const FETCH_STRUCTURES_REQUEST = 'FETCH_STRUCTURES_REQUEST',
-    FETCH_STRUCTURES_SUCCESS = 'FETCH_STRUCTURES_SUCCESS',
-    FETCH_STRUCTURES_FAILURE = 'FETCH_STRUCTURES_FAILURE'
+export const FETCH_STRUCTURES = 'FETCH_STRUCTURES'
 
 export function fetchStructures(){
-    const request = axios.get('http://localhost:3001/api/blocks')
-    return (dispatch) => {
-
-        dispatch({type: FETCH_STRUCTURES_REQUEST})
-        request.then(({data}) => {
-            if(data != undefined){
-                dispatch(fetchStructuresSuccess(data))
-            }else{
-                throw('No pages available')
-            }
-
-        }).catch(({error}) => {
-            dispatch(fetchStructuresFailure(error))
-        })
-    }
+    return requestCreator(() => fetchStructuresRequest(), createActionTypes(FETCH_STRUCTURES))
 }
-
-function fetchStructuresSuccess(listOfStructures){
-    return {type: FETCH_STRUCTURES_SUCCESS, listOfStructures}
-}
-function fetchStructuresFailure(error){
-    return {type: FETCH_STRUCTURES_FAILURE, error}
+async function fetchStructuresRequest() {
+    const response = await axios.get('http://localhost:3001/api/blocks')
+    return response.data
 }
