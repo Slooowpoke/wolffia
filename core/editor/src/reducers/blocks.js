@@ -1,9 +1,3 @@
-import {
-    CREATE_BLOCK,
-    UPDATE_BLOCK,
-    DELETE_BLOCK_SUCCESS,
-    CLEAR_CURRENT_EDITOR, SAVE_NEW_BLOCK_SUCCESS
-} from '../actions/blocks'
 
 const initialState = {
 	list: [],
@@ -19,14 +13,8 @@ export function blocks(state = initialState, action) {
                 ...state,
                 currentEditorBlock: action.response
             }
-        case CREATE_BLOCK:
-		    return {
-                ...state,
-                list: [
-                    ...state.list, action.block
-                ]
-            }
-        case SAVE_NEW_BLOCK_SUCCESS:
+        case 'SAVE_NEW_BLOCK_SUCCESS':
+            console.log(action)
             return {
                 ...state,
                 list:[
@@ -35,7 +23,7 @@ export function blocks(state = initialState, action) {
                     }
                 ]
             }
-        case UPDATE_BLOCK:
+        case 'UPDATE_BLOCK':
             return {
                 ...state,
                 list: state.list.map(block => {
@@ -45,22 +33,23 @@ export function blocks(state = initialState, action) {
                     return block
                 })
             }
-        case DELETE_BLOCK_SUCCESS:
+        case 'DELETE_BLOCK_SUCCESS':
 		    return {
                 ...state,
-               list: state.list.filter(block => block.id !== action.remove)
-            }
-        case 'LOAD_BLOCKS_REQUEST':
-		    return {
-                ...state,
-                isFetching: true
+               list: state.list.filter(block => block.id !== action.response)
             }
 		case 'LOAD_BLOCKS_SUCCESS':
+            let sortedResponse = action.response.sort(function(a, b) {
+                let keyA = a.display,
+                    keyB = b.display;
+                if (keyA < keyB) return -1;
+                if (keyA > keyB) return 1;
+                return 0;
+            });
             return {
                 ...state,
-                isFetching: false,
 				list: [
-					...action.response
+					...sortedResponse
 				],
 				lastUpdated: action.receivedAt
             }
@@ -71,7 +60,7 @@ export function blocks(state = initialState, action) {
                 error: action.error,
                 lastUpdated: action.receivedAt
             }
-        case CLEAR_CURRENT_EDITOR:
+        case 'CLEAR_CURRENT_EDITOR':
             return {
                 ...state,
                 currentEditorBlock:null
@@ -88,4 +77,12 @@ function arrayIncludesByID(array, id){
         }
     }
     return false
+}
+
+function orderByDisplay(a, b){
+    let keyA = new Date(a.display),
+        keyB = new Date(b.display);
+    if(keyA < keyB) return -1;
+    if(keyA > keyB) return 1;
+    return 0;
 }
