@@ -7,7 +7,7 @@ import './css/App.css'
 import thunk from 'redux-thunk'
 import {Provider} from 'react-redux'
 import {createStore, applyMiddleware} from 'redux'
-import {app} from './components/reducers'
+import {app} from './reducers/app'
 import { combineReducers } from 'redux'
 
 import Root from './components/Root'
