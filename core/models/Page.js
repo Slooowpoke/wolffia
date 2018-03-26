@@ -6,9 +6,13 @@ export default class Page {
         this.blocks = blocks
     }
 
-    getBlock(name){
+    getBlock(name, totalToSkip = 0){
+        let totalSkipped = 0
         for(let block of this.blocks){
-            if(block.name === name){
+            if(totalSkipped !== totalToSkip){
+                totalSkipped++
+            }
+            if(block.name === name && totalSkipped === totalToSkip){
                 return block.html
             }
         }
