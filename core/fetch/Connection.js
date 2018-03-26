@@ -19,7 +19,8 @@ export default class Connection {
 
     async dropPageData(block){
         try {
-            return await this.knex('page_data').where({'id': block}).del()
+            let success = await this.knex('page_data').where({'id': block}).del()
+            return parseInt(block);
         } catch (error) {
             console.log(error)
         }
@@ -79,11 +80,12 @@ export default class Connection {
                 page: data.page,
                 name: data.name,
                 block: data.block,
+                display: data.display,
                 data: JSON.stringify(data.data)
             }).returning('id')
             console.log(response)
 
-            return {data, response}
+            return {...data, id: response[0]}
         } catch (error) {
             console.log(error)
         }
