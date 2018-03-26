@@ -14,7 +14,7 @@ class PageEditorContainer extends Component {
         const {dispatch} = props
         this.boundActionCreators = bindActionCreators(Actions, dispatch)
 
-        dispatch(Actions.getPageByID(props.match.params.id))
+        dispatch(Actions.fetchPageByID(props.match.params.id))
         this.state = {}
     }
 
@@ -79,7 +79,7 @@ class PageEditorContainer extends Component {
     save = () => {
         const { dispatch } = this.props
         let meta = {title: this.state.title, name: this.state.name,template: this.state.template, id: this.props.meta.id}
-        dispatch(Actions.updatePage(meta))
+        dispatch(Actions.savePageMeta(meta))
     }
 
 
