@@ -43,6 +43,7 @@ router.get('/api/blocks/:id', API.getBlockStructure)
 
 router.post('/api/page/:pageID/blocks', API.updatePageData)
 router.post('/api/pages/meta/save', API.updatePageMeta)
+router.post('/api/blocks/save/:id', API.updateStructure)
 
 router.post('/api/page/:pageID/blocks/:blockID/delete', API.deletePageData)
 

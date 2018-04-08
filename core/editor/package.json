@@ -11,6 +11,7 @@
 		"react": "^16.2.0",
 		"react-aria-menubutton": "^5.1.1",
 		"react-dom": "^16.2.0",
+		"react-ionicons": "^2.1.6",
 		"react-json-view": "^1.16.1",
 		"react-redux": "^5.0.6",
 		"react-router": "^4.2.0",

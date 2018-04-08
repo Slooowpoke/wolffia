@@ -38,6 +38,11 @@ export default class Retrieve {
         return response
     }
 
+    async updateStructure(structure, id){
+        let response = await this.connection.updateStructure(structure, id)
+        return response
+    }
+
     async createPage(title, name, template){
         let response = await this.connection.createPage(title, name, template)
         return response

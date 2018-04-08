@@ -7,6 +7,8 @@
     "@koa/cors": "2",
     "async-busboy": "^0.6.2",
     "ejs": "^2.5.7",
+    "eslint-config-airbnb": "^16.1.0",
+    "global": "^4.3.2",
     "knex": "^0.14.4",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
@@ -31,12 +33,15 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2017": "^6.24.1",
     "babel-register": "^6.26.0",
+    "babel-watch": "^2.0.7",
     "eslint": "^4.18.0",
     "eslint-watch": "^3.1.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node core/index.js",
+    "core": "babel-node core/index.js ",
+    "core-debug": "babel-node core/index.js --inspect-brk ",
+    "editor": "cd core/editor && yarn run start",
     "watch:lint": "node node_modules/eslint-watch/bin/esw -w --fix"
   },
   "description": "```{ \t\"posts\": { \t\t\"value\": [{ \t\t\t\"title\": { \t\t\t\t\"type\": \"text\", \t\t\t\t\"value\": \"SO MUICH dooting faster\" \t\t\t}, \t\t\t\"content\": { \t\t\t\t\"type\": \"html\", \t\t\t\t\"value\": \"<strong>TOTORO</strong>\" \t\t\t}, \t\t\t\"posts\": { \t\t\t\t\"value\": [{ \t\t\t\t\t\"title\": { \t\t\t\t\t\t\"type\": \"text\", \t\t\t\t\t\t\"value\": \"SO MUICH dooting faster\" \t\t\t\t\t}, \t\t\t\t\t\"content\": { \t\t\t\t\t\t\"type\": \"html\", \t\t\t\t\t\t\"value\": \"<strong>TOTORO</strong>\" \t\t\t\t\t} \t\t\t\t}, { \t\t\t\t\t\"title\": { \t\t\t\t\t\t\"type\": \"text\", \t\t\t\t\t\t\"value\": \"TEST header\" \t\t\t\t\t}, \t\t\t\t\t\"content\": { \t\t\t\t\t\t\"type\": \"html\", \t\t\t\t\t\t\"value\": \"<strong>TEST</strong>\" \t\t\t\t\t} \t\t\t\t}], \t\t\t\t\"type\": \"repeating\" \t\t\t} \t\t}, { \t\t\t\"title\": { \t\t\t\t\"type\": \"text\", \t\t\t\t\"value\": \"TEST header\" \t\t\t}, \t\t\t\"content\": { \t\t\t\t\"type\": \"html\", \t\t\t\t\"value\": \"<strong>TEST</strong>\" \t\t\t} \t\t}], \t\t\"type\": \"repeating\" \t} } ```",

@@ -4,14 +4,14 @@ import ReactJson from 'react-json-view'
 
 import Header from '../Header'
 
-const StructureListItem = ({block, index}) => {
+const StructureListItem = ({block, index, edit}) => {
     return (
         <div className="row">
             <div className="col col-sm-6">
                 <p>{block.name}</p>
             </div>
             <div className="col col-sm-6">
-                <button className="btn btn-primary align-right">TODO EDIT STRUCTURE</button>
+                <button className="btn btn-primary align-right" onClick={() => edit(block.id)}>Edit Structure</button>
             </div>
         </div>
     )
@@ -60,7 +60,7 @@ class StructuresList extends Component {
                         {this.props.listOfStructures.map((block, index) => {
                             return (
 
-                                <StructureListItem key={index} block={block} index={index}/>
+                                <StructureListItem key={index} block={block} index={index} edit={this.props.edit}/>
                             )
                         })}
                     </div>

@@ -38,6 +38,12 @@ export default {
         ctx.body = JSON.stringify(await ctx.fetch.updatePageData(request, ctx.params.id))
     },
 
+    updateStructure: async(ctx) => {
+        ctx.accepts('application/json')
+        let request = ctx.request.body
+        ctx.body = JSON.stringify(await ctx.fetch.updateStructure(request, ctx.params.id, request.structure))
+    },
+
     createPage: async(ctx) => {
         ctx.accepts('application/json')
         let request = ctx.request.body
