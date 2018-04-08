@@ -6,7 +6,9 @@ import { Route, Link } from 'react-router-dom'
 import PagesContainer from './containers/PagesContainer'
 import PageEditorContainer from './containers/PageEditorContainer'
 import StructuresListContainer from './structure/StructuresListContainer'
+import StructureEditorContainer from './structure/StructureEditorContainer'
 import SettingsContainer from './settings/SettingsContainer'
+
 
 import {ConnectedRouter} from 'react-router-redux'
 import AuthenticatedComponent from './signin/AuthenticatedComponent'
@@ -23,6 +25,7 @@ const Root = ({store, history}) => (
 				<div className="wolffia-editor">
 					<Route exact path="/" component={PagesContainer}/>
 					<Route exact path="/pages/:id" component={AuthenticatedComponent(PageEditorContainer)}/>
+					<Route exact path="/structure/:id" component={AuthenticatedComponent(StructureEditorContainer)}/>
 					<Route exact path="/settings" component={AuthenticatedComponent(SettingsContainer)}/>
 					<Route exact path="/structure" component={AuthenticatedComponent(StructuresListContainer)}/>
 				</div>
