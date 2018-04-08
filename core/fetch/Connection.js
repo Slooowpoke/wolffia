@@ -54,11 +54,16 @@ export default class Connection {
         }
     }
 
+	async updateStructure(structure, id){
+		const [updateResponse] = await this.db.execute('UPDATE `blocks` SET `structure` = ? WHERE `blocks`.`id` = ?', [structure, id])
+		return updateResponse
+	}
+
     async fetchSingleBlockStructure(id){
         try {
-            let blockStructure = await this.knex.select('*').from('blocks').where({'id': id}).first()
-            blockStructure.structure = JSON.parse(blockStructure.structure)
-            return blockStructure
+            let blockStructure = await this.knex.select('*').from('blocks').where({'id': id}).first();
+            blockStructure.structure = JSON.parse(blockStructure.structure);
+            return blockStructure;
         } catch (error) {
             console.log(error)
         }
@@ -66,7 +71,7 @@ export default class Connection {
 
     async fetchListOfBlocks(){
         try {
-	        return await this.knex.select('name', 'id').from('blocks')
+	        return await this.knex.select('name', 'id').from('blocks');
         } catch (error) {
             console.log(error)
         }
