@@ -1,13 +1,11 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 
-import VisibleBlocksContainer from '../containers/VisibleBlocksContainer'
-import Header from '../Header'
+import VisibleBlocksContainer from '../containers/VisibleBlocksContainer';
+import Header from '../Header';
 
 class PageEditor extends Component {
     constructor(props) {
-        super(props)
-
-
+        super(props);
     }
 
     render() {
