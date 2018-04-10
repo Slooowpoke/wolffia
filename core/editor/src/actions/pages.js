@@ -9,7 +9,7 @@ export const
     CREATE_PAGE = 'CREATE_PAGE',
     DELETE_PAGE = 'DELETE_PAGE',
     LOAD_PAGES = 'LOAD_PAGES',
-    FETCH_PAGE_BY_ID = 'FETCH_PAGE_BY_ID'
+    FETCH_PAGE_BY_ID = 'FETCH_PAGE_BY_ID';
 
 export function savePageMeta(meta){
     return requestCreator(() => savePageMetaRequest(meta), createActionTypes(SAVE_PAGE_META))

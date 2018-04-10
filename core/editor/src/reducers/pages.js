@@ -1,4 +1,3 @@
-
 const initialState = {
 	list: [],
 	isFetching: true,
@@ -14,10 +13,10 @@ export function pages(state = initialState, action) {
 				...state,
                 list: [
                     ...state.list, {
-                        id: action.id,
-                        title: action.title,
-                        name: action.name,
-                        template: action.template
+                        id: action.response.id,
+                        title: action.response.title,
+                        name: action.response.name,
+                        template: action.response.template
                     }
                 ]
 			}
