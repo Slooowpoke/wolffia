@@ -21,7 +21,11 @@ class VisibleBlocksContainer extends Component {
 
     create = () =>{
         const { dispatch } = this.props
-        let biggestDisplay = this.props.list[this.props.list.length-1].display;
+        let biggestDisplay = 0;
+        if(this.props.list.length !== 0){
+            biggestDisplay = this.props.list[this.props.list.length-1].display;
+        }
+
         dispatch(Actions.getBlockEditorStructure(this.state.selectedType.id, this.props.pageID, biggestDisplay))
     }
 
