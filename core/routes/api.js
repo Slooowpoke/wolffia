@@ -45,10 +45,10 @@ export default {
     },
 
     createPage: async(ctx) => {
-        ctx.accepts('application/json')
-        let request = ctx.request.body
-        let pageCreationResponse = await ctx.fetch.createPage(request.title, request.name,request.template)
-        ctx.body = JSON.stringify(pageCreationResponse)
+        ctx.accepts('application/json');
+        let request = ctx.request.body;
+        let pageCreationResponse = await ctx.fetch.createPage(request.title, request.name,request.template);
+        ctx.body = JSON.stringify(pageCreationResponse);
     },
 
     createPageData: async(ctx) => {

@@ -56,7 +56,8 @@ class NewPage extends Component {
 	}
 
     save = () => {
-        this.props.createPage(this.state.title, this.state.name, this.state.template)
+        this.props.createPage(this.state.title, this.state.name, this.state.template);
+        this.setState({title: "", name: "", template: ""})
     }
 
     onChangeTemplate = (e) => {

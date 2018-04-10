@@ -39,16 +39,13 @@ export default class Retrieve {
     }
 
     async updateStructure(structure, id){
-        let response = await this.connection.updateStructure(structure, id)
-        return response
+        return await this.connection.updateStructure(structure, id)
+
     }
 
     async createPage(title, name, template){
-        let response = await this.connection.createPage(title, name, template)
-        return response
+        return await this.connection.insertPage(title, name, template);
     }
-
-
 
     async getBlockStructure(id){
         let response = await this.connection.fetchSingleBlockStructure(id)

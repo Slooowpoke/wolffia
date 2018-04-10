@@ -17,14 +17,18 @@ class PagesContainer extends Component {
 
     render() {
         return (
-            <Pages pages={this.props.list} editPage={this.editPage}/>
+            <Pages pages={this.props.list} editPage={this.editPage} createPage={this.createPage}/>
         )
     }
 
+    createPage = (title, name, template) => {
+        const {dispatch} = this.props;
+        dispatch(Actions.createPage(title, name, template));
+    }
 
     editPage = (id, e) => {
-        const {dispatch} = this.props
-        dispatch(Actions.viewPage(id))
+        const {dispatch} = this.props;
+        dispatch(Actions.viewPage(id));
     }
 
 
