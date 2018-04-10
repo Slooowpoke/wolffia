@@ -1,15 +1,12 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import PrimaryButton from '../buttons/PrimaryButton';
 
 const PageListItem = ({page, index, edit}) => {
     return (
-        <div className="row">
-            <div className="col col-sm-6">
-                <p>{page.name} - {page.title}</p>
-            </div>
-            <div className="col col-sm-6">
-                <button onClick={(e) => edit(page.id, e)} className="btn btn-primary align-right">Edit Page</button>
-            </div>
-        </div>
+        <li>
+            {page.name} - {page.title}
+            <PrimaryButton onClick={(e) => edit(page.id, e)} text='Edit Page' classes='align-right' />
+        </li>
     )
 }
 
@@ -35,11 +32,13 @@ class VisiblePages extends Component {
             <div className="row">
                 <div className="col">
                     <div className="block-outline">
-                        {this.props.pages.map((page, index) => {
-                            return (
-                                <PageListItem key={index} page={page} index={index} edit={this.props.edit}/>
-                            )
-                        })}
+                        <ul className="flex-list">
+                            {this.props.pages.map((page, index) => {
+                                return (
+                                    <PageListItem key={index} page={page} index={index} edit={this.props.edit}/>
+                                )
+                            })}
+                        </ul>
                     </div>
                 </div>
             </div>
