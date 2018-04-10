@@ -3,6 +3,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import * as Actions from '../../actions/blocks'
 import * as FieldFactory from '../fields/FieldFactory'
+import Card from '../layout/Card'
 
 class Block extends Component {
 
@@ -49,15 +50,14 @@ class Block extends Component {
 		return (
 		<div className="row">
 			<div className="col">
-				<div className="block-outline">
-                    <span className="box-label">{this.state.block.name}</span>
+                <Card title={this.state.block.name}>
                     {
                         Object.keys(this.state.block.data).map((key) => {
                             return FieldFactory.create(key, this.state.block.data[key], this.updateBlock)
                         })
                     }
                     <button className="btn btn-primary btn-full" onClick={this.deleteThisBlock}>Delete Block</button>
-				</div>
+				</Card>
 			</div>
 		</div>)
 	}

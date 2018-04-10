@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Card from '../layout/Card'
 
 class NewPage extends Component {
 
@@ -15,8 +16,8 @@ class NewPage extends Component {
         return (
             <div className="row">
                 <div className="col">
-                    <div className="block-outline">
-                        <span className="box-label">Create a new page</span>
+                    <Card title='Create new page'>
+
                         <div className="row">
                         <div className="col col-sm-4">
                             <label>
@@ -48,8 +49,7 @@ class NewPage extends Component {
                                 <button className="btn btn-outline align-right margin-top" onClick={this.save}>Create page</button>
                             </div>
                         </div>
-
-                    </div>
+                    </Card>
                 </div>
             </div>
         )
