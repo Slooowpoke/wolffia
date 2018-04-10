@@ -1,0 +1,15 @@
+ul.internalstructure{
+  list-style: none;
+  border: 1px dashed #ddd;
+  padding: 20px;
+
+  .field{
+    border: 1px solid;
+    padding: 10px;
+    margin: 8px auto;
+  }
+
+  .delete-icon{
+    float: right;
+  }
+}
