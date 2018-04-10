@@ -104,7 +104,7 @@ export default class Connection {
                 template
             }
             let id = await this.knex('pages').returning('id').insert(page)
-            return {page, id}
+            return {...page, ...id}
         } catch (error) {
             console.log(error)
         }
