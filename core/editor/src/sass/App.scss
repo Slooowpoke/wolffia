@@ -2,6 +2,8 @@
 @import "buttons";
 @import "inputs";
 @import "animations";
+@import "structure";
+@import "lists";
 
 html{
   overflow-y:scroll;
@@ -9,8 +11,9 @@ html{
 
 body {
   margin: 0;
-  font-family: 'Karla', sans-serif;
+  font-family: 'Karla',  sans-serif;
   letter-spacing: 1px;
+  color:$black;
 }
 
 .flex{
@@ -179,3 +182,14 @@ hr {
 .video {
   width: 50%;
 }
+
+@mixin headers {
+  $totalHeaders: 6;
+  @for $i from 1 through $totalHeaders {
+    .h#{$i} {
+      font-family: 'Helvetica', 'Karla', sans-serif;
+    }
+  }
+}
+@include headers;
+
