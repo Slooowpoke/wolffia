@@ -1,21 +1,16 @@
-import React, {Component} from 'react'
-
-import ReactJson from 'react-json-view'
-
-import Header from '../Header'
+import React, {Component} from 'react';
+import Header from '../Header';
+import Card from '../layout/Card'
+import PrimaryButton from '../buttons/PrimaryButton'
 
 const StructureListItem = ({block, index, edit}) => {
     return (
-        <div className="row">
-            <div className="col col-sm-6">
-                <p>{block.name}</p>
-            </div>
-            <div className="col col-sm-6">
-                <button className="btn btn-primary align-right" onClick={() => edit(block.id)}>Edit Structure</button>
-            </div>
-        </div>
-    )
-}
+        <li>
+            <p>{block.name}</p>
+            <PrimaryButton classes='align-right' onClick={() => edit(block.id)} text='Edit Structure'/>
+        </li>
+    );
+};
 
 class StructuresList extends Component {
 
@@ -28,14 +23,6 @@ class StructuresList extends Component {
             <div className="container-fluid">
                 <Header title="Block Structures"/>
 
-                {/*<div className="row">*/}
-                {/*<div className="col">*/}
-                {/*<div className="block-outline">*/}
-                {/*<ReactJson className="margin-top" src={this.state.json} />*/}
-                {/*</div>*/}
-                {/*</div>*/}
-                {/*</div>*/}
-
                 {this.listStructures()}
             </div>
         )
@@ -46,9 +33,9 @@ class StructuresList extends Component {
             return (
                 <div className="row">
                     <div className="col">
-                        <div className="block-outline">
+                        <Card>
                             <p>No block structures created yet.</p>
-                        </div>
+                        </Card>
                     </div>
                 </div>
             )
@@ -56,14 +43,15 @@ class StructuresList extends Component {
         return (
             <div className="row">
                 <div className="col">
-                    <div className="block-outline">
-                        {this.props.listOfStructures.map((block, index) => {
-                            return (
-
-                                <StructureListItem key={index} block={block} index={index} edit={this.props.edit}/>
-                            )
-                        })}
-                    </div>
+                    <Card title='Structures available'>
+                        <ul className='flex-list'>
+                            {this.props.listOfStructures.map((block, index) => {
+                                return (
+                                    <StructureListItem key={index} block={block} index={index} edit={this.props.edit}/>
+                                )
+                            })}
+                        </ul>
+                    </Card>
                 </div>
             </div>
         )
