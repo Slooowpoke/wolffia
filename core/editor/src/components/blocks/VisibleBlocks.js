@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Block from './Block'
 import NewBlock from './NewBlock'
-import FieldSelector from '../fields/FieldSelector'
+import BlockSelector from '../fields/BlockSelector'
+import Card from '../layout/Card'
 
 class VisibleBlocks extends Component {
 
@@ -21,31 +22,30 @@ class VisibleBlocks extends Component {
 		    <div>
                 <div className="row">
                     <div className="col">
-                        <div className="block-outline">
-                            <span className="box-label">Save page data</span>
+                        <Card title='Save page data'>
+
                             <button className="btn btn-outline btn-full margin-top" onClick={this.props.save}>Save Blocks</button>
-                        </div>
+                        </Card>
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col">
-                        <div className="block-outline">
-                            <span className="box-label">Create a new block</span>
+                        <Card title='Create new block'>
                             <div className="row">
                                 <div className="col col-sm-6">
                                     <label>
                                         <span>
                                             Block Type Selector:
                                         </span>
-                                        <FieldSelector selectType={this.props.selectType}/>
+                                        <BlockSelector selectType={this.props.selectType}/>
                                     </label>
                                 </div>
                                 <div className="col col-sm-6">
                                     <button className="btn btn-primary align-right" onClick={this.props.create} >Create block</button>
                                 </div>
                             </div>
-                        </div>
+                        </Card>
                     </div>
                 </div>
 

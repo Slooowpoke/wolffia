@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import * as Actions from '../../actions/blocks'
 import { Button, Wrapper, Menu, MenuItem } from 'react-aria-menubutton';
 
-class FieldSelector extends Component{
+class BlockSelector extends Component{
 
     constructor(props) {
         super(props)
@@ -49,4 +49,4 @@ class FieldSelector extends Component{
     }
 }
 
-export default connect()(FieldSelector)
+export default connect()(BlockSelector)
