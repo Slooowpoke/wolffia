@@ -1,0 +1,46 @@
+input[type="text"] {
+  padding: 10px 11px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  width: 100%; }
+  input[type="text"].fancy-input {
+    border: none;
+    font-size: 20px; }
+    input[type="text"].fancy-input:focus {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      outline: none; }
+
+input[type="text"].outline {
+  caret-color: rgba(0, 0, 0, 0.3);
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.1); }
+  input[type="text"].outline:focus {
+    outline: none; }
+  input[type="text"].outline::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgba(0, 0, 0, 0.05);
+    opacity: 1;
+    /* Firefox */
+    font-weight: 700; }
+  input[type="text"].outline:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: rgba(0, 0, 0, 0.05);
+    font-weight: 700; }
+  input[type="text"].outline::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: rgba(0, 0, 0, 0.05);
+    font-weight: 700; }
+
+textarea {
+  padding: 10px 11px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  width: 100%;
+  resize: vertical; }
+
+label span {
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 10px; }

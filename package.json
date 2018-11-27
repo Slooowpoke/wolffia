@@ -6,6 +6,7 @@
   "dependencies": {
     "@koa/cors": "2",
     "async-busboy": "^0.6.2",
+    "dotenv": "^6.1.0",
     "ejs": "^2.5.7",
     "eslint-config-airbnb": "^16.1.0",
     "global": "^4.3.2",

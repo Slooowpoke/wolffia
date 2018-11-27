@@ -1,0 +1,7 @@
+.flex-list {
+  padding-left: 0; }
+  .flex-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0; }

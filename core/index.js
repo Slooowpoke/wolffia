@@ -4,6 +4,7 @@ import Koa from 'koa'
 import Pages from './routes/pages'
 import API from './routes/api'
 import Router from 'koa-router'
+require('dotenv').config()
 
 const views = require('koa-views')
 const bodyParser = require('koa-bodyparser')

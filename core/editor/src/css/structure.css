@@ -1,0 +1,12 @@
+ul.internalstructure {
+  list-style: none;
+  border: 1px dashed #ddd;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px; }
+  ul.internalstructure .field {
+    border: 1px solid;
+    padding: 10px;
+    margin: 8px auto; }
+  ul.internalstructure .delete-icon {
+    float: right; }

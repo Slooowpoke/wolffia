@@ -3,7 +3,7 @@ import ReactJson from 'react-json-view';
 import Header from '../Header';
 import AddField from '../structure/AddField';
 import FieldSelector from '../structure/FieldSelector';
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+
 import Card from '../layout/Card';
 import PrimaryButton from '../buttons/PrimaryButton'
 
