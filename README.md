@@ -1,5 +1,6 @@
-# Wolffia
+# Wolffia - Unfinished
 A tiny, flexible content management system built with Node.JS and React.
+
 
 ## Goals
 
